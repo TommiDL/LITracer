@@ -2,27 +2,38 @@ package org.example
 
 import kotlin.math.withSign
 
+/**
+ * check if two float are similar within a certain precision
+ * @a = first float to compare
+ * @b = second float to compare
+ * @eps = the allowed difference between the two floats
+ */
 fun are_similar(a:Float, b:Float, eps:Float=1e-5f):Boolean
 {
-    /**
-     * check if two float are similar within a certain precision
-     */
     return (kotlin.math.abs(a-b)<eps)
 
 }
 
-
+/**
+ * check if two float are similar within a certain precision
+ * @a = first doule to compare
+ * @b = second double to compare
+ * @eps = the allowed difference between the two doubles
+ */
 fun are_similar(a:Double, b: Double, eps:Float=1e-5f):Boolean
 {
-    /**
-     * check if two float are similar within a certain precision
-     */
     return (kotlin.math.abs(a-b)<eps)
 
 }
 
 
-
+/**
+ * check if two homogeneous matrices are similar within a certain precision.
+ * @m1 = first matrix to compare.
+ * @m2 = second matrix to compare.
+ * @eps = the allowed difference between the elements of the matrices.
+ * @return True if the matrices have the same dimensions and all corresponding elements differ by less than eps.
+ */
 fun are_matr_close(m1:HomMatrix, m2:HomMatrix, eps:Float=1e-5f):Boolean
 {
     if((m1.width!=m2.width) or (m1.height!=m2.height))
@@ -41,6 +52,14 @@ fun are_matr_close(m1:HomMatrix, m2:HomMatrix, eps:Float=1e-5f):Boolean
     return close
 }
 
+/**
+ * Check if two intervals intersect.
+ * @xmin = the minimum value of the first interval.
+ * @xmax = the maximum value of the first interval.
+ * @ymin = the minimum value of the second interval.
+ * @ymax = the maximum value of the second interval.
+ * @return True if the intervals intersect, false otherwise.
+ */
 fun interval_intersection(xmin:Float, xmax:Float, ymin:Float, ymax:Float):Boolean
 {
     val min1:Float
@@ -73,7 +92,7 @@ fun interval_intersection(xmin:Float, xmax:Float, ymin:Float, ymax:Float):Boolea
 }
 
 /**
- * Creation of a OrtoNormalBase from Normal
+ * Creates an orthonormal basis from a normal vector
  */
 fun create_onb_from_z(normal: Normal):Array<Vec>
 {
@@ -103,7 +122,7 @@ fun create_onb_from_z(normal: Normal):Array<Vec>
 }
 
 /**
- * Creation of a OrtoNormalBase from Vec
+ * Creates an orthonormal basis from a vector
  */
 fun create_onb_from_z(normal: Vec):Array<Vec>
 {

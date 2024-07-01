@@ -15,7 +15,12 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+### local files ###
 memorial.png
+animation.sh
+generate-image.sh
+*.py
 
 ### Eclipse ###
 .apt_generated

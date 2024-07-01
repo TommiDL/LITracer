@@ -2,11 +2,20 @@ package org.example
 
 import kotlin.math.*
 
+/**
+ * A class representing a spherical shape.
+ *
+ * @transformation = transformation applied to the sphere (e.g., translation, rotation, scaling).
+ * @material = material properties of the sphere (e.g., color, texture, reflectivity).
+ */
 class Sphere(
     override val transformation:Transformation=Transformation(),
     override val material: Material=Material()
 ):Shape() {
 
+    /**
+     * Determines whether a given ray intersects with the sphere
+     */
     override fun ray_intersection(ray: Ray): HitRecord? {
 
         val inv_ray:Ray = ray.transform(this.transformation.inverse())
@@ -40,6 +49,9 @@ class Sphere(
 
     }
 
+    /**
+     * Computes the normal vector at a given point on the sphere
+     */
     fun _sphere_normal(point:Point, ray_dir:Vec):Normal
     {
         val res:Normal=Normal(x = point.x, y = point.y, z = point.z)
@@ -47,6 +59,9 @@ class Sphere(
         return if (point.conversion() * ray_dir < 0f) res else res*(-1)
     }
 
+    /**
+     * Converts a point on the sphere to UV coordinates
+     */
     fun _sphere_point_to_uv(point:Point):Vec2D
     {
         val u = atan2(point.y, point.x) / (2f* PI.toFloat())

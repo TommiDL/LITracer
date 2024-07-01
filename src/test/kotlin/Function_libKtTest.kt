@@ -23,9 +23,9 @@ class Function_libKtTest {
         for(i in 0 until  1000000)
         {
             val normal=Vec(
-                x=pcg.random().toFloat(),
-                y=pcg.random().toFloat(),
-                z=pcg.random().toFloat()
+                x=pcg.random_float(),
+                y=pcg.random_float(),
+                z=pcg.random_float()
             ).normalize()
 
             val e1:Vec= create_onb_from_z(normal)[0]

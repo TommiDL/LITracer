@@ -1,5 +1,13 @@
 package org.example
 
+/**
+ * A data class to store parameters for processing PFM to PNG conversion.
+ *
+ * @input_pfm_file_name = name of the input PFM file.
+ * @factor = scaling factor for the image. Default is 0.2.
+ * @gamma = gamma correction value. Default is 1.0.
+ * @output_png_filename = name of the output PNG file.
+ */
 data class Parameters(
         var input_pfm_file_name:String="",
         var factor:Float=0.2f,
@@ -7,6 +15,13 @@ data class Parameters(
         var output_png_filename:String=""
     )
 {
+
+    /**
+     * Parses command-line arguments and assigns them to the corresponding properties.
+     *
+     * @argv = list of command-line arguments.
+     * @RuntimeException : if the number of arguments is incorrect or if parsing fails.
+     */
     fun parse_command_line(argv: List<String>)
     {
         if(argv.size!=4)

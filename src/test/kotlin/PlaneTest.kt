@@ -59,7 +59,7 @@ class PlaneTest {
     fun test_transformed_plane() {
 
         //test on a translated plane
-        val plane_translated: Plane = Plane(traslation(vec = Vec(0f, 0f, 1f)))
+        val plane_translated: Plane = Plane(translation(vec = Vec(0f, 0f, 1f)))
 
         val ray1: Ray = Ray(
             origin = Point(0f, 0f, 2f),

@@ -8,17 +8,20 @@ import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import javax.imageio.ImageIO
-import kotlin.math.pow
 import kotlin.math.log10
+import kotlin.math.pow
 
-
+/**
+ * Clamps a floating-point value using a specific formula.
+ */
 fun _clamp (x: Float): Float
 {
     return x / (1 + x)
 }
 
 /**
- * Function to read a PFM file
+ * Reads an HDR image from a PFM file:
+ * @stream = the input stream to read the PFM file from
  */
 fun read_pfm_image(stream: InputStream):HdrImage
 {
@@ -57,7 +60,8 @@ fun read_pfm_image(stream: InputStream):HdrImage
 }
 
 /**
- * read the endianness from PFM file
+ * Parses the endianness from the PFM file:
+ * @line = line containing the enaidnness information
  */
 fun _parse_endianness(line:String):ByteOrder
 {
@@ -82,6 +86,10 @@ fun _parse_endianness(line:String):ByteOrder
     }
 }
 
+/**
+ * Parses the image size from the PFM file:
+ * @str = string containing the image size
+ */
 fun _parse_img_size(str:String):Array<Int>
 {
     val l = str.split(" ")
@@ -106,6 +114,9 @@ fun _parse_img_size(str:String):Array<Int>
     return arrayOf<Int>(w, h)
 }
 
+/**
+ * Reads a line from the input stream
+ */
 fun _read_line(stream: InputStream):String {
 
     val res:ByteArrayOutputStream=ByteArrayOutputStream()
@@ -126,7 +137,9 @@ fun _read_line(stream: InputStream):String {
 }
 
 /**
- * Read a float 32 bit from a binary file opened in a stream object
+ * Read a 32-bit float from a binary file opened in a stream object:
+ * @stream = input stream to read from
+ * @endianness = the byte order
  */
 fun _read_float(stream: InputStream, endiannes:ByteOrder):Float
 {
@@ -149,14 +162,136 @@ fun _read_float(stream: InputStream, endiannes:ByteOrder):Float
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Create a matrix with dimensions (width, height)
- * of Color in RGB format (all in color black)
- *
- *
+ * De-clamps a floating-point value using a specific formula
+ */
+fun _declamp(y:Float):Float
+{
+    return y/(1-y)
+}
+
+/**
+ * Inverts an LDR color with optional gamma correction
+ */
+fun invert_ldr(col:Color, gamma: Float=1f):Color
+{
+    val new_color:Color=Color(
+        r = (col.r/255f).pow(gamma),
+        g = (col.g/255f).pow(gamma),
+        b = (col.b/255f).pow(gamma),
+    )
+
+    return new_color
+}
+
+/**
+ * Reads a PNG image and processes it into an HDR image:
+ * @stream = the input stream to read the PNG file from.
+ * @parameters = additional parameters for processing.
+ * @luminosity = optional luminosity value for processing.
+ * @declamp = whether to apply de-clamping.
+ * @denormalize = whether to apply denormalization.
+ * @ldr_inversion = whether to apply LDR inversion.
+ */
+fun read_png(
+    stream: InputStream,
+    parameters: Parameters= Parameters(),
+    luminosity: Float?=null,
+    declamp:Boolean=false,
+    denormalize:Boolean=false,
+    ldr_inversion:Boolean=false
+):HdrImage
+{
+
+    //read the image
+    val png=ImageIO.read(stream)
+    val size:Int=png.width*png.height
+
+    val img:HdrImage=HdrImage(width = png.width, height = png.height)
+
+    var counter:Int=0
+
+    println("Reading Image")
+    // read raw image
+    for(col in 0 until png.width)
+    {
+        for (row in png.height-1 downTo 0 )
+        {
+            val png_color=png.getRGB(col, row)
+
+            val blue: Float = (png_color and 0xff).toFloat()
+            val green: Float = ((png_color and 0xff00) shr 8).toFloat()
+            val red: Float = ((png_color and 0xff0000) shr 16).toFloat()
+
+            img.set_pixel(col, row, Color(r = red, g = green, b = blue))
+
+            counter+=1
+
+        }
+        print("\r["+"#".repeat(col*20/png.width)+" ".repeat((png.width-col)*20/png.width)+"]  [${100*counter.toFloat()/size}%]  ")
+    }
+    println()
+
+    counter=0
+    img.pixels.forEach {
+        var color=it
+
+
+        //invert ldr
+        if(ldr_inversion)
+            color=invert_ldr(color, gamma = parameters.gamma)
+
+        if(declamp)
+        {
+            color.r = _declamp(color.r)
+            color.g = _declamp(color.g)
+            color.b = _declamp(color.b)
+        }
+
+        it.r=color.r
+        it.g=color.g
+        it.b=color.b
+
+        counter+=1
+
+        print("\r["+"#".repeat(counter*20/size)+" ".repeat((size-counter)*20/size)+"]  [${100*counter.toFloat()/size}%]  ")
+
+    }
+
+
+    println()
+
+    println("final size of the array: ${img.pixels.size}")
+
+
+    if (denormalize)
+    {
+        println("de-normalizing in progress")
+        img._denormalize_image(
+            factor = parameters.factor,
+            luminosity = luminosity
+        )
+
+        println()
+        println("done")
+    }
+
+    return img
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Represents an HDR image (matrix) with dimensions (width, height) and a pixel array of colors in RGB format
  */
 class HdrImage(val width:Int = 0, val height:Int=0)
 {
     var pixels = Array<Color>(size = width * height) {Color()}
+
+    constructor(width: Int, height: Int, pixels:Array<Color>):this(width = width, height=height)
+    {
+        this.pixels=pixels
+    }
 
     /**
      * Return the `Color` value for a pixel in the image
@@ -172,7 +307,7 @@ class HdrImage(val width:Int = 0, val height:Int=0)
 
 
     /**
-     * Set the new color for a pixel in the image
+     * Sets a new color for a pixel in the image
      * The pixel in the top-left corner has coordinates (0, 0)
      */
     fun set_pixel(x:Int, y:Int, new_color:Color)
@@ -184,7 +319,7 @@ class HdrImage(val width:Int = 0, val height:Int=0)
 
 
     /**
-     * Check if the coordinates of the matrix are inside the boundaries
+     * Checks if the coordinates are within the image boundaries
      */
     fun valid_coordinates(x:Int, y:Int):Boolean
     {
@@ -192,7 +327,7 @@ class HdrImage(val width:Int = 0, val height:Int=0)
     }
 
     /**
-     * return the index of the array implementation for the matrix of colors
+     * Returns the index of the pixel in the array
      */
     fun pixel_offset(x:Int, y:Int):Int
     {
@@ -200,8 +335,8 @@ class HdrImage(val width:Int = 0, val height:Int=0)
     }
 
     /**
-     * Returns the average of the image luminosity
-     * Using logaritmic average
+     * Computes the average of the image using a logarithmic average
+     * @delta = a small value to avoid log(0)
      */
     fun average_luminosity (delta: Double = 1e-10): Double
     {
@@ -215,8 +350,9 @@ class HdrImage(val width:Int = 0, val height:Int=0)
     }
 
     /**
-     * Normalizes the image through average luminosity
-     * Input: the value of alpha, the luminosity and the variable color of type Color
+     * Normalizes the image based on the average luminosity:
+     * @factor = normalization factor
+     * @luminosity = optional luminosity value for normalization
      */
     fun normalize_image (factor: Float, luminosity: Float? = null)
     {
@@ -224,6 +360,20 @@ class HdrImage(val width:Int = 0, val height:Int=0)
         for(i in this.pixels.indices)
             this.pixels[i] = (this.pixels[i] * (factor / lum.toFloat()))
     }
+
+    /**
+     * De-normalizes the image based on the average luminosity:
+     * @factor = normalization factor
+     * @luminosity = optional luminosity value for normalization
+     */
+    fun _denormalize_image(factor: Float, luminosity: Float? = null)
+    {
+        val lum = luminosity ?: this.average_luminosity(delta = 1e-10)
+        for(i in this.pixels.indices)
+            this.pixels[i] = (this.pixels[i] * (lum.toFloat()/factor))
+
+    }
+
 
     /**
      * Correction for light sources through "_clamp" function
@@ -238,6 +388,9 @@ class HdrImage(val width:Int = 0, val height:Int=0)
         }
     }
 
+    /**
+     * Writes a float value to a stream with the specified byte order(endianness)
+     */
     fun _writeFloatToStream(stream: OutputStream, value: Float, order: ByteOrder) {
         val bytes = ByteBuffer.allocate(4).putFloat(value).array() // Big endian
 
@@ -249,11 +402,17 @@ class HdrImage(val width:Int = 0, val height:Int=0)
     }
 
     /**
-     * writes a PFM file with a given output stream
+     * Writes the HDR image to a PFM file
      *
      * the color matrix is written with (0,0) in the bottom left corner
      */
     fun write_pfm_image(stream: OutputStream, endiannes:ByteOrder = ByteOrder.LITTLE_ENDIAN) {
+
+        var counter:Int=0
+
+        println("Writing pfm image")
+        print("[")
+
         val endiannes_str:String = if (endiannes == ByteOrder.LITTLE_ENDIAN) "-1.0" else "1.0"
 
         //setting the header that must be printed on the top of the file
@@ -272,16 +431,26 @@ class HdrImage(val width:Int = 0, val height:Int=0)
                 _writeFloatToStream(stream, color.g, endiannes)
                 _writeFloatToStream(stream, color.b, endiannes)
 
+                counter+=1
+
             }
+            print("\r["+"#".repeat((this.height-i)*20/this.height)+" ".repeat((i)*20/this.height)+"]  [ ${100*counter.toFloat()/this.pixels.size}% ]   ")
         }
+        println()
     }
 
     /**
-     * generate a ldr image from a Stream of Output
-     * with the selected format
+     * Writes the HRD image to a LDR image file from a Stream of Output in the specified format:
+     * @stream = output stream
+     * @format = image format (e.g. "png")
+     * @gamma = gamma correction value
      */
     fun write_ldr_image(stream: OutputStream, format:String, gamma:Float=1.0f)
     {
+        var counter:Int=0
+
+        println("Writing LDR image in format $format")
+        print("[")
         val img:BufferedImage = BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB)
 
         for (y in 0 until this.height) {
@@ -292,10 +461,16 @@ class HdrImage(val width:Int = 0, val height:Int=0)
 
                 val conv:Int = (255*(color.r.pow(1/gamma))).toInt() * 65536 + (255*(color.g.pow(1/gamma))).toInt() * 256 + (255*(color.b.pow(1/gamma))).toInt()
                 img.setRGB(x, y, conv)
+
+                counter+=1
             }
+            print("\r["+"#".repeat((y)*20/this.height)+" ".repeat((this.height-y)*20/this.height)+"]  [${100*counter.toFloat()/this.pixels.size} %]    ")
         }
         ImageIO.write(img, format, stream)
+        println()
     }
+
+
 
 
 }

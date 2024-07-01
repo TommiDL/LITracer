@@ -7,7 +7,7 @@ package org.example
 data class Vec2D(var u:Float=0f, var v:Float=0f) {
 
     /**
-     * Comparison between 2 Vec2D objects
+     * Checks if this vector is equal to another Vec2D within a certain precision (@eps)
      */
     fun is_close(vec2d:Vec2D, eps:Float=1e-5f):Boolean
     {

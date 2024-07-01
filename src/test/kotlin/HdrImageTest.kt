@@ -1,7 +1,11 @@
+
 import org.example.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
 import java.io.ByteArrayInputStream
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.nio.ByteOrder
 import kotlin.test.assertFailsWith
 
@@ -178,6 +182,122 @@ class HdrImageTest {
         assertTrue(_read_line(line)=="Hello")
         assertTrue(_read_line(line)=="world")
         assertTrue(_read_line(line)=="")
+
+
+    }
+
+
+    @Test
+    fun test_pfm_from_png()
+    {
+        val factor:Float=0.2f
+        val gamma:Float=1f
+
+        val parameters=Parameters(
+            factor = factor,
+            gamma = gamma,
+        )
+
+        //read pfm and create a png
+        val image:HdrImage= read_pfm_image(FileInputStream("memorial.pfm"))
+        val lum:Float=image.average_luminosity().toFloat()
+        image.normalize_image(factor=factor, luminosity = lum)
+        image.clamp_image()
+
+        image.write_ldr_image(
+            stream = FileOutputStream("memorial.png"),
+            format = "png",
+            gamma = gamma,
+        )
+
+
+        println("doing conversion")
+        //read png and create pfm
+        val new_img=read_png(
+            stream = FileInputStream("memorial.png"),
+            parameters=parameters,
+            luminosity = lum
+        )
+
+        //new_img!!.normalize_image(factor=factor)
+        println("conversion done")
+
+        assertTrue(new_img!=null)
+
+        assertTrue(new_img?.width==image.width)
+        assertTrue(new_img?.height==image.height)
+
+        val pcg=PCG()
+
+        println("\nAverage luminosity")
+        println("\treal image "+image.average_luminosity())
+        new_img!!.normalize_image(factor=factor)    //normalize new image
+        println("\tconverted  " + new_img?.average_luminosity())
+
+
+        assertTrue(are_similar(image.average_luminosity(), new_img!!.average_luminosity(), eps = 0.5f))
+
+   /*     println("random testing started")
+        if(new_img!=null)
+        {
+            for (trial in 0 until 100)
+            {
+                println("trial $trial")
+                val col: Int = round(pcg.random_float() * new_img.width).toInt()
+                val row: Int = round(pcg.random_float() * new_img.height).toInt()
+
+//                println("\t$col $row")
+//                println("\treal image ${image.get_pixel(col, row)}")
+//                println("\tconverted  ${new_img.get_pixel(col, row)}")
+
+                /*
+                println("\t\tR real/converted ${image.get_pixel(col, row).r/new_img.get_pixel(col, row).r}")
+                println("\t\tG real/converted ${image.get_pixel(col, row).g/new_img.get_pixel(col, row).g}")
+                println("\t\tB real/converted ${image.get_pixel(col, row).b/new_img.get_pixel(col, row).b}")
+*/
+
+//                println("\t\tR/B real      ${image.get_pixel(col, row).r/image.get_pixel(col, row).b}")
+ //               println("\t\tR/B converted ${new_img.get_pixel(col, row).r/new_img.get_pixel(col, row).b}")
+
+                println("\t\tfraction ${
+                    new_img.get_pixel(col, row).luminosity()/image.get_pixel(col, row).luminosity()
+                }")
+
+/*
+                println("\t\tR-B real      ${(image.get_pixel(col, row).r-image.get_pixel(col, row).b)/(image.get_pixel(col, row).r+image.get_pixel(col, row).b)}")
+                println("\t\tR-B converted ${(new_img.get_pixel(col, row).r-new_img.get_pixel(col, row).b)/(new_img.get_pixel(col, row).r+new_img.get_pixel(col, row).b)}")
+*/
+//                println("\t\tR-B real      ${(new_img.get_pixel(col, row).r-new_img.get_pixel(col, row).b)/(image.get_pixel(col, row).r-image.get_pixel(col, row).b)}")
+
+
+                assertTrue(
+                    are_similar(
+                        (image.get_pixel(col, row).r-image.get_pixel(col, row).b)/(image.get_pixel(col, row).r+image.get_pixel(col, row).b),
+                        (new_img.get_pixel(col, row).r-new_img.get_pixel(col, row).b)/(new_img.get_pixel(col, row).r+new_img.get_pixel(col, row).b),
+                        eps=1f
+                    )
+                )
+
+                assertTrue(
+                    are_similar(
+                        (image.get_pixel(col, row).r-image.get_pixel(col, row).g)/(image.get_pixel(col, row).r+image.get_pixel(col, row).g),
+                        (new_img.get_pixel(col, row).r-new_img.get_pixel(col, row).g)/(new_img.get_pixel(col, row).r+new_img.get_pixel(col, row).g),
+                        eps=1f
+                    )
+                )
+
+                assertTrue(
+                    are_similar(
+                        (image.get_pixel(col, row).g-image.get_pixel(col, row).b)/(image.get_pixel(col, row).g+image.get_pixel(col, row).b),
+                        (new_img.get_pixel(col, row).g-new_img.get_pixel(col, row).b)/(new_img.get_pixel(col, row).g+new_img.get_pixel(col, row).b),
+                        eps=1f
+                    )
+                )
+
+            }
+        }
+*/
+
 
 
     }

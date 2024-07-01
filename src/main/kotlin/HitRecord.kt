@@ -6,7 +6,8 @@ package org.example
  * surface normal to the intersection,
  * (u,v) intersection coordinates,
  * ray parameter associated to the intersection,
- * ray that caused the intersection
+ * ray that caused the intersection,
+ * material at the intersection
  */
 class HitRecord(
     val world_point:Point,
@@ -18,7 +19,7 @@ class HitRecord(
     ) {
 
     /**
-     * Comparison between 2 hit record objects
+     * Checks if this HitRecord is close to another HitRecord within a given epsilon
      */
     fun is_close(hit_record:HitRecord, eps:Float=1e-5f):Boolean
     {

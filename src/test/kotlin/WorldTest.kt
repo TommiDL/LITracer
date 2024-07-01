@@ -10,8 +10,8 @@ class WorldTest {
     @Test
     fun test_ray_intersection() {
         val world = World()
-        val sphere1: Sphere = Sphere(transformation = traslation(vec_x * 2))
-        val sphere2: Sphere = Sphere(transformation = traslation(vec_x * 8))
+        val sphere1: Sphere = Sphere(transformation = translation(vec_x * 2))
+        val sphere2: Sphere = Sphere(transformation = translation(vec_x * 8))
         world.add(sphere1)
         world.add(sphere2)
 
