@@ -1,5 +1,7 @@
 # LITracer
-This is a very simple [Ray-Tracer](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language 
+The **LITracer** generate photorealistic images using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique. 
+
+The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language.
 
 
 ## Installation
