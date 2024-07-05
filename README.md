@@ -1,7 +1,7 @@
 # LITracer
-The **LITracer** generate photorealistic images using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique. 
+**LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
 
-The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language.
+The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
 
 
 ## Installation
@@ -13,7 +13,7 @@ To satisfy the requested dependencies in order to run this code use the command 
 Finally run the command `./gradlew test` to check the correct behavior of the code.
 
 ## Usage
-The program was made using Gradle and can perform three tasks:
+**LITracer** can perform three tasks:
 
  - ### Demo  
      
