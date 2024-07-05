@@ -12,7 +12,7 @@ The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programmin
 
 ## Installation
 
-To obtain this code, in order to run or modify the program, clone this repository using the command `./git clone [this_version_link]`
+To obtain this code, in order to run or modify the program, download the zip file from the ![v0.3.0](https://github.com/TommiDL/LITracer/archive/refs/tags/v0.3.0.zip) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
 
 To satisfy the requested dependencies in order to run this code use the command `./gradlew build`.
 
