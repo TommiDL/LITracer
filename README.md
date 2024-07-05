@@ -4,6 +4,12 @@ This is a very simple [Ray-Tracer](https://developer.nvidia.com/discover/ray-tra
 
 ## Installation
 
+To obtain this code, in order to run or modify the program, clone this repository using the command `./git clone [this_version_link]`
+
+To satisfy the requested dependencies in order to run this code use the command `./gradlew build`.
+
+Finally run the command `./gradlew test` to check the correct behavior of the code.
+
 ## Usage
 The program was made using Gradle and can perform three tasks:
 
