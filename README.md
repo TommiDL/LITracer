@@ -14,6 +14,9 @@ The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programmin
 
 To obtain this code, in order to run or modify the program, download the zip file from the ![v0.3.0](https://github.com/TommiDL/LITracer/archive/refs/tags/v0.3.0.zip) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
 
+The presence od **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
+
+
 To satisfy the requested dependencies in order to run this code use the command `./gradlew build`.
 
 Finally run the command `./gradlew test` to check the correct behavior of the code.
