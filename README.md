@@ -162,7 +162,7 @@ From the left to the right: (1) max depth = 1, (2) max depth = 2, (3) max depth 
 
 ## History
 
-See the file [CHANGELOG.md](https://github.com/TommiDL/LITracer/blob/master/CHANGELOG.md)
+See the file [CHANGELOG.md](https://github.com/TommiDL/LITracer/blob/master/CHANGELOG.md) to have a full insight on LITracer's version history 
 
 ## License
 The code is released under the Apache License version 2.0. See the file [LICENSE.md](https://github.com/TommiDL/LITracer/blob/master/LICENSE)
