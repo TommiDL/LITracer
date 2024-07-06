@@ -1,5 +1,7 @@
+
 import org.example.*
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.math.PI
 
@@ -20,8 +22,6 @@ class TransformationKtTest {
         {
             a.matrix[i,i]=2f
         }
-
-        println(a)
 
         assertFalse(a.is_consistent())
 
@@ -47,19 +47,19 @@ class TransformationKtTest {
 
     @Test
     fun Test_traslation() {
-        val trasl:Transformation= traslation(Vec(1f,2f,3f))
+        val trasl:Transformation= translation(Vec(1f,2f,3f))
 
         //vector product
-        assertTrue( (trasl*Vec(4f,5f,6f)).is_close(Vec(4f,5f,6f)) )             //traslation of a not null vector --> vector cannot be traslated
-        assertTrue( (traslation() * Vec(1f,2f,3f)).is_close(Vec(1f,2f,3f)) )    //traslation of a null vector
+        assertTrue( (trasl*Vec(4f,5f,6f)).is_close(Vec(4f,5f,6f)) )             //translation of a not null vector --> vector cannot be traslated
+        assertTrue( (translation() * Vec(1f,2f,3f)).is_close(Vec(1f,2f,3f)) )    //translation of a null vector
 
         //normal product
-        assertTrue( (trasl*Normal(4f,5f,6f)).is_close(Normal(4f,5f,6f)) )             //traslation of a not null normal --> normal cannot be traslated
-        assertTrue( (traslation() * Normal(1f,2f,3f)).is_close(Normal(1f,2f,3f)) )    //traslation of a null normal
+        assertTrue( (trasl*Normal(4f,5f,6f)).is_close(Normal(4f,5f,6f)) )             //translation of a not null normal --> normal cannot be traslated
+        assertTrue( (translation() * Normal(1f,2f,3f)).is_close(Normal(1f,2f,3f)) )    //translation of a null normal
 
         //point product
-        assertTrue( (trasl*Point(4f,5f,6f)).is_close(Point(5f,7f,9f)) )             //traslation of a not null Point
-        assertTrue( (traslation() * Point(1f,2f,3f)).is_close(Point(1f,2f,3f)) )    //traslation of a null Point
+        assertTrue( (trasl*Point(4f,5f,6f)).is_close(Point(5f,7f,9f)) )             //translation of a not null Point
+        assertTrue( (translation() * Point(1f,2f,3f)).is_close(Point(1f,2f,3f)) )    //translation of a null Point
 
     }
 
@@ -129,4 +129,105 @@ class TransformationKtTest {
         val sc:Transformation= scalar_transformation(2f,3f,4f)
         assertTrue((sc*Vec(5f, 7f, 11f)).is_close(Vec(10f, 21f, 44f)))
     }
+
+    @Test
+    fun test_matrix_composition()
+    {
+
+        val a= arrayOf<Float>(
+            2f, 0f, 0f, -1f,
+            0f, 3f, 0f, 0f,
+            0f, 0f, 4f, 0f,
+            1f, 0f, 0f, 6f
+        )
+
+        val ainv= arrayOf(
+            72f  , 0f  , 0f  , 12f,
+            0f   , 52f , 0f  , 0f,
+            0f   , 0f  , 39f , 0f,
+            -12f , 0f  , 0f  , 24f
+        )
+
+        val b= arrayOf<Float>(
+            3f, 0f, 0f, 0f,
+            0f, 1f, 0f, -1f,
+            0f, 0f, 1f, 0f,
+            1f, 0f, 0f, 2f
+        )
+
+        val binv= arrayOf(
+            2f  , 0f , 0f , 0f,
+            -1f , 6f , 0f , 3f,
+            0f  , 0f , 6f , 0f,
+            -1f , 0f , 0f , 3f,
+        )
+
+        val ab= arrayOf<Float>(
+            5f,0f, 0f, -2f,
+            0f, 3f, 0f, -3f,
+            0f, 0f, 4f, 0f,
+            9f, 0f, 0f, 12f
+        )
+
+        val ba= arrayOf<Float>(
+            6f, 0f, 0f, -3f,
+            -1f, 3f, 0f, -6f,
+            0f, 0f, 4f, 0f,
+            4f, 0f, 0f, 11f,
+        )
+
+
+        val abinv= arrayOf<Float>(
+            24f, 0f, 0f, 4f,
+            -18f, 52f, 0f, 10f,
+            0f, 0f, 39f, 0f,
+            -18f, 0f, 0f, 10f
+        )
+
+
+        val bainv= arrayOf<Float>(
+            66f  ,  0f  , 0f   , 18f,
+            -26f , 156f , 0f   , 78f,
+            0f   , 0f   , 117f , 0f,
+            -24f , 0f   , 0f   , 36f
+        )
+
+
+        val A:Transformation=Transformation(
+            matrix = HomMatrix(a.toFloatArray()),
+            invmatrix = HomMatrix(ainv.toFloatArray())*(1/156f)
+        )
+        val B:Transformation=Transformation(
+            matrix = HomMatrix(b.toFloatArray()),
+            invmatrix = HomMatrix(binv.toFloatArray())*(1/6f)
+        )
+
+        val AB=HomMatrix(ab.toFloatArray())
+
+        val BA=HomMatrix(ba.toFloatArray())
+
+        val ABinv=HomMatrix(abinv.toFloatArray())*(1/156f)
+
+        val BAinv=HomMatrix(bainv.toFloatArray())*(1/468f)
+
+        assertTrue(
+            are_matr_close((A*B).matrix, AB)
+        )
+
+        assertTrue(
+            are_matr_close((B*A).matrix, BA)
+        )
+
+        assertTrue(
+            are_matr_close((A*B).invmatrix, ABinv)
+        )
+        assertTrue(
+            are_matr_close((B*A).invmatrix, BAinv)
+        )
+
+
+
+
+    }
+
 }

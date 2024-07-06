@@ -70,7 +70,7 @@ class SphereTest
         @Test
         fun test_transformed_sphere()
         {
-            val sphere:Sphere=Sphere(traslation(vec = Vec(10f, 0f,0f)))
+            val sphere:Sphere=Sphere(translation(vec = Vec(10f, 0f,0f)))
 
             var ray:Ray=Ray(
                 origin = Point(10f, 0f, 2f),

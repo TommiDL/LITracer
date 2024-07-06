@@ -161,46 +161,46 @@ class TriangleTest {
             )
         )
 
-        val camera:Camera=OrthogonalCamera(
-            //transformation = rotation(Vec(z=1f), theta = PI.toFloat()/4)
-        )
-        /*val camera:Camera=PerspectiveCamera(
-            aspect_ratio = 0.5f,
-            distance = 50f,
-            //transformation = rotation(u=Vec(x =1f), theta = PI.toFloat()/4)
-        )*/
+            val camera:Camera=OrthogonalCamera(
+                //transformation = rotation(Vec(z=1f), theta = PI.toFloat()/4)
+            )
+            /*val camera:Camera=PerspectiveCamera(
+                aspect_ratio = 0.5f,
+                distance = 50f,
+                //transformation = rotation(u=Vec(x =1f), theta = PI.toFloat()/4)
+            )*/
 
-        val img:HdrImage=HdrImage(width = 960, height=960)
+            val img:HdrImage=HdrImage(width = 960, height=960)
 
-        val tracer:ImageTracer=ImageTracer(camera= camera, image = img)
+            val tracer:ImageTracer=ImageTracer(camera= camera, image = img)
 
-        val WHITE:Color=Color(255f, 255f, 255f)
-        //            Color(r= Random.nextFloat(), g= Random.nextFloat(), b= Random.nextFloat())
-        val BLACK:Color=Color()
+            val WHITE:Color=Color(255f, 255f, 255f)
+    //            Color(r= Random.nextFloat(), g= Random.nextFloat(), b= Random.nextFloat())
+            val BLACK:Color=Color()
 
-        tracer.fire_all_ray() { ray: Ray ->
-            val hit=world.ray_intersection(ray)!=null
+            tracer.fire_all_ray() { ray: Ray ->
+                val hit=world.ray_intersection(ray)!=null
 
-            if (hit) WHITE
-            else BLACK
-        }
+                if (hit) WHITE
+                else BLACK
+            }
 
-        try {
-            val filename="triangle.png"
-            //save image in PNG file
-            img.normalize_image(1f)
-            img.clamp_image()
-            val out_stream: FileOutputStream = FileOutputStream(filename)
-            img.write_ldr_image(stream = out_stream, format = "PNG")
-            println("Image saved in PNG format at PATH: ${filename}")
+            try {
+                val filename="triangle.png"
+                //save image in PNG file
+                img.normalize_image(1f)
+                img.clamp_image()
+                val out_stream: FileOutputStream = FileOutputStream(filename)
+                img.write_ldr_image(stream = out_stream, format = "PNG")
+                println("Image saved in PNG format at PATH: ${filename}")
 
-        }catch (e:Error)
-        {
-            println("Impossible to write on file triangle.png")
-            println("Error: $e")
+            }catch (e:Error)
+            {
+                println("Impossible to write on file triangle.png")
+                println("Error: $e")
 
-            return
-        }
+                return
+            }
 
     }
 

@@ -2,11 +2,13 @@ package org.example
 
 /**
  * A class implementing a solver of the renderer equation to inherit
+ * @world = world in which the rendering is performed.
+ * @background_color = background color to use when no objects are hit by a ray
  */
 open class Renderer(open val world: World, open val background_color:Color=Color(0f,0f,0f))
 {
     /**
-     * Estimate the radiance along a ray
+     * Estimates the radiance along a @ray
      */
     open operator fun invoke(ray: Ray):Color
     {
@@ -15,9 +17,9 @@ open class Renderer(open val world: World, open val background_color:Color=Color
 }
 
 /**
- * A on/off renderer
+ * An on/off renderer
  *
- *This renderer is mostly useful for debugging purposes, as it is really fast, but it produces boring images
+ *This renderer is mostly useful for debugging purposes, as it is really fast, but it produces simple images
  */
 class OnOffRenderer(
     override val world: World,
@@ -25,6 +27,10 @@ class OnOffRenderer(
     val color:Color=Color(255f,255f, 255f)
 ):Renderer(world)
 {
+
+    /**
+     * Estimates the radiance along a @ray
+     */
     override operator fun invoke(ray: Ray):Color
     {
         return if (this.world.ray_intersection(ray=ray)!=null)  this.color else this.background_color
@@ -33,16 +39,20 @@ class OnOffRenderer(
 
 
 /**
- * "A «flat» renderer
+ * A «flat» renderer
  *
  *     This renderer estimates the solution of the rendering equation by neglecting any contribution of the light.
- *     It just uses the pigment of each surface to determine how to compute the final radiance.
+ *     It just uses the pigment of each surface to determine the final radiance.
  */
 class FlatRenderer(
     override val world: World,
     override val background_color: Color=Color(0f,0f,0f)
 ):Renderer(world)
 {
+
+    /**
+     * Estimates the radiance along a ray
+     */
     override operator fun invoke(ray: Ray): Color {
 
         val hit=this.world.ray_intersection(ray)

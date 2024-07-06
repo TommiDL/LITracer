@@ -1,8 +1,5 @@
 package org.example
 
-import jdk.jfr.TransitionFrom
-import java.nio.channels.Pipe
-import kotlin.io.path.fileVisitor
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
@@ -15,9 +12,10 @@ val ID:FloatArray = floatArrayOf(
 )
 
 /**
- * Matrix 2x2
- *
- * Operation defined with Vec, Point and Normal
+ * A class representing a 4x4 homogeneous transformation matrix
+ * @matrix = elements of the matrix stored in a row-major order
+ * @width = width of the matrix, default is 4
+ * @height = height of the matrix, default is 4
  */
 data class HomMatrix(var matrix:FloatArray,
                      var width:Int=4,
@@ -30,6 +28,9 @@ data class HomMatrix(var matrix:FloatArray,
         require(matrix.size==this.width*this.height) { "A homogeneous matrix must be 4×4" }
     }
 
+    /**
+     * Default constructor initializing the matrix to the identity matrix
+     */
     constructor():this(ID.copyOf())
     /*constructor():this(
         floatArrayOf(
@@ -55,7 +56,7 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Get access to pivot (x,y)
+     * Accesses the element at position (x, y) in the matrix.
      */
     operator fun get(x:Int, y:Int):Float
     {
@@ -63,7 +64,7 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Set pivot (x,y)
+     * Sets the element at position (x, y) in the matrix.
      */
     operator fun set(x:Int, y:Int, float: Float)
     {
@@ -71,9 +72,11 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Set the matrix with the array of pivots
+     * Set the matrix to the specified array of elements
      *
      * the order is given by concatenate rows
+     *
+     * @array = new elements of the matrix
      */
     fun set(array:FloatArray)
     {
@@ -88,7 +91,7 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Matrix-Matrix product O(n^3)
+     * Multiplies this matrix by another matrix
      */
     operator fun times(m:HomMatrix):HomMatrix
     {
@@ -108,7 +111,7 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Scalar product
+     * Scalar product (Multiplies this matrix by a scalar value)
      */
     operator fun times(factor:Float):HomMatrix
     {
@@ -122,7 +125,7 @@ data class HomMatrix(var matrix:FloatArray,
 
 
     /**
-     * Product matrix-Vec->Vec
+     * Product matrix-Vec->Vec (Multiplies this matrix by a vector)
      */
     operator fun times(vec: Vec): Vec
     {
@@ -138,7 +141,7 @@ data class HomMatrix(var matrix:FloatArray,
     //    }
     }
     /**
-     * Product matrix-Point->Point
+     * Product matrix-Point->Point (Multiplies this matrix by a point)
      */
     operator fun times(p:Point):Point
     {
@@ -158,7 +161,7 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Product matrix-Normal->Normal
+     * Product matrix-Normal->Normal (Multiplies this matrix by a normal vector)
      */
     operator fun times(normal: Normal):Normal
     {
@@ -170,7 +173,7 @@ data class HomMatrix(var matrix:FloatArray,
     }
 
     /**
-     * Determinant of a NxN matrix
+     * Calculates the determinant of this matrix
      */
     fun det():Float
     {
@@ -199,9 +202,7 @@ data class HomMatrix(var matrix:FloatArray,
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Transformation Class
- *
- *
+ * A class representing a transformation consisting of a matrix and its inverse
  */
 data class Transformation(var matrix:HomMatrix= HomMatrix(ID.copyOf()), var invmatrix:HomMatrix=HomMatrix(ID.copyOf()))
 {
@@ -210,34 +211,54 @@ data class Transformation(var matrix:HomMatrix= HomMatrix(ID.copyOf()), var invm
 
         return str
     }
+
+    /**
+     * Checks if the transformation matrix and its inverse are consistent
+     */
     fun is_consistent():Boolean
     {
         val prod:HomMatrix = this.matrix*this.invmatrix
         return are_matr_close(prod, HomMatrix(ID))
     }
 
+    /**
+     * Multiplies this transformation by another transformation
+     */
     operator fun times(other:Transformation):Transformation
     {
         return Transformation(
             matrix=this.matrix*other.matrix,
-            invmatrix=other.invmatrix*this.matrix
+            invmatrix=other.invmatrix*this.invmatrix
         )
     }
 
+    /**
+     * Transforms a point using this transformation
+     */
     operator fun times(p: Point):Point
     {
         return this.matrix*p
     }
+
+    /**
+     * Transforms a vector using this transformation
+     */
     operator fun times(vec: Vec):Vec
     {
         return this.matrix*vec
     }
 
+    /**
+     * Transforms a normal vector using this transformation
+     */
     operator fun times(normal: Normal):Normal
     {
         return this.invmatrix*normal
     }
 
+    /**
+     * Transforms a ray using this transformation
+     */
     operator fun times(ray:Ray):Ray
     {
         return Ray(
@@ -249,6 +270,9 @@ data class Transformation(var matrix:HomMatrix= HomMatrix(ID.copyOf()), var invm
         )
     }
 
+    /**
+     * Returns the inverse of this transformation
+     */
     fun inverse():Transformation
     {
         return Transformation(matrix=this.invmatrix, invmatrix=this.matrix)
@@ -259,9 +283,9 @@ data class Transformation(var matrix:HomMatrix= HomMatrix(ID.copyOf()), var invm
 
 
 /**
- * Return a Traslation trasformation generated by the input vector
+ * Returns a Translation trasformation generated by the input vector
  */
-fun traslation(vec:Vec=Vec()):Transformation
+fun translation(vec:Vec=Vec()):Transformation
 {
     return Transformation(
         matrix = HomMatrix(floatArrayOf(
@@ -280,8 +304,8 @@ fun traslation(vec:Vec=Vec()):Transformation
 }
 
 /**
- * Return the array of pivots for a rotation HomoMatrix
- * with the given axis and angle
+ * Returns the array of elements for a rotation HomoMatrix
+ * with the given axis (@u) and angle (@theta)
  */
 fun _rotation_matrix(u:Vec=Vec(), theta: Float=0f):FloatArray
 {
@@ -297,8 +321,8 @@ fun _rotation_matrix(u:Vec=Vec(), theta: Float=0f):FloatArray
 /**
  * Returns a Rotation transformation around a given axis by a specified angle in radians.
  *
- * @param u Vec representing the axis of rotation. Default is a zero vector.
- * @param theta Angle of rotation in radians. Default is 0.
+ * @u = vec representing the axis of rotation. Default is a zero vector.
+ * @theta = angle of rotation in radians. Default is 0.
  *
  * @return A transformation representing the rotation.
  * @example
@@ -314,6 +338,14 @@ fun rotation(u:Vec=Vec(), theta:Float=0f):Transformation
     )
 }
 
+/**
+ * Returns the array of elements for a scaling homogeneous matrix with the given scale factors.
+ *
+ * @sx = scaling factor along the x-axis.
+ * @sy = scaling factor along the y-axis.
+ * @sz = scaling factor along the z-axis.
+ * @return The array of elements for the scaling matrix.
+ */
 fun _scalar_tranformation_array(sx:Float=1f, sy:Float=1f, sz:Float=1f):FloatArray
 {
     return floatArrayOf(
@@ -324,10 +356,24 @@ fun _scalar_tranformation_array(sx:Float=1f, sy:Float=1f, sz:Float=1f):FloatArra
     )
 }
 
+/**
+ * Returns a scaling transformation with the given scale factors along each axis
+ */
 fun scalar_transformation(sx:Float=1f, sy:Float=1f, sz:Float=1f):Transformation
 {
     return Transformation(
         matrix = HomMatrix(_scalar_tranformation_array(sx, sy, sz)),
         invmatrix = HomMatrix(_scalar_tranformation_array(1/sx, 1/sy, 1/sz))
+    )
+}
+
+/**
+ * Returns a uniform scaling transformation with the given scale factor (@s)
+ */
+fun scalar_transformation(s:Float=1f):Transformation
+{
+    return Transformation(
+        matrix = HomMatrix(_scalar_tranformation_array(s, s, s)),
+        invmatrix = HomMatrix(_scalar_tranformation_array(1/s, 1/s, 1/s))
     )
 }

@@ -2,6 +2,17 @@ package org.example
 
 import kotlin.math.max
 
+/**
+ * Path tracer renderer for generating images using Monte Carlo integration.
+ *
+ * Parameters:
+ *          @world = scene to be rendered.
+ *          @background_color = background color used when no intersection is found.
+ *          @pcg = random number generator instance.
+ *          @n_ray = number of rays to trace per pixel.
+ *          @max_depth = maximum recursion depth for ray tracing.
+ *          @russian_roulette_limit = depth after which Russian Roulette termination is applied.
+ */
 class pathtracer(
     override val world:World,
     override val background_color: Color=Color(0f,0f,0f),
@@ -11,6 +22,9 @@ class pathtracer(
     val russian_roulette_limit:Int=3
 ):Renderer(world)
 {
+    /**
+     * Traces a @ray and computes the color by considering intersections and light scattering
+     */
     override operator fun invoke(ray: Ray):Color
     {
 
@@ -40,7 +54,7 @@ class pathtracer(
             }
             else
             {
-                // Terminate prematurely
+                // Terminate recursion & return emitted radiance
                 return emittedRadiance
             }
 
@@ -49,7 +63,7 @@ class pathtracer(
         //Monte Carlo integration
         var cum_radiance=Color(0f,0f,0f)
 
-        // Only do costly recursions if it's worth it
+        // Perform recursion only if hit_color luminance is significant
 
         if (hit_color_lum>0f)
         {
