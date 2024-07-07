@@ -11,7 +11,7 @@ data class Triangle(
 ):Shape(material=material) {
 
     /**
-     * Returns a point inside the triangle
+     * Returns a point inside the triangle given the barycentric coordinates (@beta & @gamma)
      */
     fun get_point(beta:Float, gamma:Float):Point?{
         if((0f <= beta) && (beta <= 1f) && (0f <= gamma) && (gamma <= 1f))
@@ -36,6 +36,15 @@ data class Triangle(
 
     /**
      * Determinant of a 3x3 matrix
+     * @a = element at (0, 0)
+     * @b = element at (0, 1)
+     * @c = element at (0, 2)
+     * @d = element at (1, 0)
+     * @e = element at (1, 1)
+     * @f = element at (1, 2)
+     * @g = element at (2, 0)
+     * @h = element at (2, 1)
+     * @i = element at (2, 2)
      */
     fun det(
         a:Float, b:Float, c:Float,
@@ -49,8 +58,8 @@ data class Triangle(
     }
 
     /**
-     * Checks for ray intersection with triangle
-     * @return hit record
+     * Checks for ray intersection with the triangle
+     * @return The hit record if there is an intersection, otherwise null
      */
     override fun ray_intersection(ray: Ray): HitRecord? {
 

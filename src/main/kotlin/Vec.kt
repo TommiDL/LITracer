@@ -3,14 +3,20 @@ package org.example
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+/**
+ * A class representing a 3D vector
+ */
 data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
 {
+    /**
+     * Returns a string representation of the vector
+     */
     override fun toString(): String {
         return "Vector (x=$x, y=$y, z=$z)"
     }
 
     /**
-     * Comparison with another vector
+     * Compares this vector with another vector within a certain precision (@eps)
      */
     fun is_close(vec:Vec, eps:Float=1e-15f):Boolean
     {
@@ -18,7 +24,7 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Sum between vectors
+     * Adds this vector to another vector
      */
     operator fun plus(vec:Vec):Vec
     {
@@ -26,7 +32,7 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Sum between vectors
+     * Adds this vector to a point
      */
     operator fun plus(pt:Point):Point
     {
@@ -35,7 +41,7 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
 
 
     /**
-     * Difference between vectors
+     * Subtracts another vector from this vector
      */
     operator fun minus(vec:Vec):Vec
     {
@@ -43,30 +49,39 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Moltiplication by a scalar
+     * Multiplies this vector by a scalar
      */
     operator fun times(factor:Float):Vec
     {
         return Vec(x=factor*this.x, y=factor*this.y, z=factor*this.z)
     }
 
+    /**
+     * Multiplies this vector by an integer scalar
+     */
     operator fun times(factor:Int):Vec
     {
         return Vec(x=factor*this.x, y=factor*this.y, z=factor*this.z)
     }
 
+    /**
+     * Divides this vector by a scalar
+     */
     operator fun div(factor:Float):Vec
     {
         return Vec(x=this.x/factor, y=this.y/factor, z=this.z/factor)
     }
 
+    /**
+     * Divides this vector by an integer scalar
+     */
     operator fun div(factor:Int):Vec
     {
         return Vec(x=this.x/factor, y=this.y/factor, z=this.z/factor)
     }
 
     /**
-     * return the opposite vector
+     * Returns the opposite of this vector
      */
     fun neg():Vec
     {
@@ -74,7 +89,7 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * return the scalar product
+     * Returns the dot product of this vector and another vector
      */
     operator fun times(vec: Vec):Float
     {
@@ -82,7 +97,7 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Vector product
+     * Returns the cross product of this vector and another vector
      */
     fun prod(vec:Vec):Vec
     {
@@ -93,21 +108,21 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
         )
     }
     /**
-     * returns the Norm of a Vector
+     * Returns the norm (length) of the vector
      */
     fun norm():Float
     {
         return sqrt(this.squared_norm())
     }
     /**
-     * returns the squared Norm of a Vector
+     * Returns the squared norm of the vector
      */
     fun squared_norm():Float
     {
         return this * this
     }
     /**
-     * returns the Vector normalized
+     * Returns the normalized version of this vector
      */
     fun normalize():Vec
     {
@@ -115,7 +130,7 @@ data class Vec(var x:Float=0f, var y:Float=0f, var z:Float=0f)
         return Vec(this.x/norm, this.y/norm, this.z/norm)
     }
     /**
-     * conversion from Vec to Normal
+     * Converts this vector to a normal vector
      */
     fun conversion():Normal
     {

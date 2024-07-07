@@ -4,6 +4,13 @@ import kotlin.Float.Companion.POSITIVE_INFINITY
 
 /**
  * Ray class for the simulation of a light ray
+ *
+ * Parameters:
+ *          @origin = origin point of the ray
+ *          @dir = direction vector of the ray
+ *          @tmin = minimum value of the ray parameter t
+ *          @tmax = maximum value of the ray parameter t
+ *          @depth = depth of the ray, typically used for recursive ray tracing
  */
 data class Ray(
     val origin:Point=Point(),
@@ -14,7 +21,7 @@ data class Ray(
     )
 {
     /**
-     * Comparison between 2 ray objects
+     * Checks if this Ray is similar to another Ray within a certain precision
      */
     fun is_close(other:Ray, eps:Float=1e-5f):Boolean
     {
@@ -25,7 +32,7 @@ data class Ray(
     }
 
     /**
-     * fot a given length return the point of the ray of that length
+     * Returns the point along the ray at the specified parameter t (length)
      */
     fun at(t:Float):Point
     {
@@ -34,6 +41,7 @@ data class Ray(
 
     /**
      * Return the ray evolved with the transformation given
+     * @transformation = transformation to apply to the ray
      */
     fun transform(transformation: Transformation):Ray
     {

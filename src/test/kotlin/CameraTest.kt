@@ -31,7 +31,7 @@ class CameraTest {
     @Test
     fun testOrthogonalCamera_transform() {
 
-        val cam = OrthogonalCamera(transformation=traslation(Vec(0f,-1f,0f) * 2.0f) * rotation(Vec(0f,0f,1f), 90f))
+        val cam = OrthogonalCamera(transformation=translation(Vec(0f,-1f,0f) * 2.0f) * rotation(Vec(0f,0f,1f), 90f))
 
         val ray = cam.fire_ray(0.5f, 0.5f)
         assertTrue(ray.at(1.0f).is_close(Point(0.0f, -2.0f, 0.0f)))
@@ -64,7 +64,7 @@ class CameraTest {
     @Test
     fun testPerspectiveCamera_transform() {
 
-        val cam = PerspectiveCamera(transformation=traslation(Vec(0f,-1f,0f) * 2.0f) * rotation(Vec(0f,0f,1f), 90f))
+        val cam = PerspectiveCamera(transformation=translation(Vec(0f,-1f,0f) * 2.0f) * rotation(Vec(0f,0f,1f), 90f))
 
         val ray = cam.fire_ray(0.5f, 0.5f)
         assertTrue(ray.at(1.0f).is_close(Point(0.0f, -2.0f, 0.0f)))

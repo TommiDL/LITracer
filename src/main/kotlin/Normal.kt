@@ -2,13 +2,17 @@ package org.example
 
 import kotlin.math.sqrt
 
+/**
+ * Data class which represents a 3D normal vector
+ */
 data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     {
     override fun toString(): String {
         return "Normal (x=$x, y=$y, z=$z)"
     }
+
     /**
-     * Check if two normals are close
+     * Check if two normals are close within a given epsilon
      */
     fun is_close(normal: Normal, eps:Float=1e-15f):Boolean
     {
@@ -16,7 +20,7 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * return the opposite normal
+     * Return the opposite normal
      */
     fun neg():Normal
     {
@@ -24,21 +28,32 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Product with a scalar
+     * Scale the normal by a float factor
      */
     operator fun times(factor:Float):Normal
     {
         return Normal(x=factor * this.x, y=factor * this.y, z=factor * this.z)
     }
+
+   /**
+    * Divide the normal by a float factor
+    */
     operator fun div(factor:Float):Normal
     {
         return Normal(x=this.x / factor, y=this.y / factor, z=this.z / factor)
     }
 
+    /**
+     * Scale the normal by an integer factor
+     */
     operator fun times(factor:Int):Normal
     {
         return Normal(x=factor * this.x, y=factor * this.y, z=factor * this.z)
     }
+
+    /**
+     * Divide the normal by an integer factor
+     */
     operator fun div(factor:Int):Normal
     {
         return Normal(x=this.x / factor, y=this.y / factor, z=this.z / factor)
@@ -46,7 +61,7 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
 
 
     /**
-     * Scalar product
+     * Compute the dot product with another normal
      */
     operator fun times(vec: Normal):Float
     {
@@ -54,7 +69,7 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Vector product (vec x normal)
+     * Compute the cross product with a vector
      */
     operator fun times(vec: Vec):Normal
     {
@@ -66,7 +81,7 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Vector product (normal x normal)
+     * Compute the cross product with another normal
      */
     fun prod(normal: Normal):Normal
     {
@@ -78,7 +93,7 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Norm of a Normal
+     * Compute the norm (magnitude) of the normal
      */
     fun norm():Float
     {
@@ -86,7 +101,7 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Squared norm
+     * Compute the squared norm (magnitude) of the normal
      */
     fun squared_norm():Float
     {
@@ -94,12 +109,23 @@ data class Normal(var x:Float=0f, var y:Float=0f, var z:Float=0f)
     }
 
     /**
-     * Normalization of a Normal
+     * Normalize the normal to a unit vector
      */
     fun normalize():Normal
     {
-
         return (this / (this.norm()))
+    }
+
+    /**
+     * Convert the normal to a vector
+     */
+    fun toVec():Vec
+    {
+        return Vec(
+            x=this.x,
+            y=this.y,
+            z=this.z
+        )
     }
 
 }

@@ -47,19 +47,19 @@ class TransformationKtTest {
 
     @Test
     fun Test_traslation() {
-        val trasl:Transformation= traslation(Vec(1f,2f,3f))
+        val trasl:Transformation= translation(Vec(1f,2f,3f))
 
         //vector product
-        assertTrue( (trasl*Vec(4f,5f,6f)).is_close(Vec(4f,5f,6f)) )             //traslation of a not null vector --> vector cannot be traslated
-        assertTrue( (traslation() * Vec(1f,2f,3f)).is_close(Vec(1f,2f,3f)) )    //traslation of a null vector
+        assertTrue( (trasl*Vec(4f,5f,6f)).is_close(Vec(4f,5f,6f)) )             //translation of a not null vector --> vector cannot be traslated
+        assertTrue( (translation() * Vec(1f,2f,3f)).is_close(Vec(1f,2f,3f)) )    //translation of a null vector
 
         //normal product
-        assertTrue( (trasl*Normal(4f,5f,6f)).is_close(Normal(4f,5f,6f)) )             //traslation of a not null normal --> normal cannot be traslated
-        assertTrue( (traslation() * Normal(1f,2f,3f)).is_close(Normal(1f,2f,3f)) )    //traslation of a null normal
+        assertTrue( (trasl*Normal(4f,5f,6f)).is_close(Normal(4f,5f,6f)) )             //translation of a not null normal --> normal cannot be traslated
+        assertTrue( (translation() * Normal(1f,2f,3f)).is_close(Normal(1f,2f,3f)) )    //translation of a null normal
 
         //point product
-        assertTrue( (trasl*Point(4f,5f,6f)).is_close(Point(5f,7f,9f)) )             //traslation of a not null Point
-        assertTrue( (traslation() * Point(1f,2f,3f)).is_close(Point(1f,2f,3f)) )    //traslation of a null Point
+        assertTrue( (trasl*Point(4f,5f,6f)).is_close(Point(5f,7f,9f)) )             //translation of a not null Point
+        assertTrue( (translation() * Point(1f,2f,3f)).is_close(Point(1f,2f,3f)) )    //translation of a null Point
 
     }
 
