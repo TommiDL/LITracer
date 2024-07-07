@@ -7,14 +7,15 @@
 # LITracer
 **LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
 
-The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
+This raytracer was developed during Professor Maurizio Tomasi's course [Numerical techniques for the generation of photorealistic images](https://ziotom78.github.io/raytracing_course/)
 
+The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
 
 ## Installation
 
 To obtain this code, in order to run or modify the program, download the zip file from the ![v0.3.0](https://github.com/TommiDL/LITracer/archive/refs/tags/v0.3.0.zip) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
 
-The presence od **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
+The presence of **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
 
 
 To satisfy the requested dependencies in order to run this code use the command `./gradlew build`.
@@ -26,8 +27,7 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
 
  - ### Demo  
      
-   Create a pfm file of a demo scene and (optionally) a PNG image allowing the user to choose between a perspective or an orthogonal point of view
-   (in fondo aggiungere due foto linkate) 
+   Create a pfm file of a demo scene and (optionally) a PNG image, allowing the user to choose between a perspective or an orthogonal point of view
 
    The available rendering algorithms are the following:
    - onoff:         the objects of the scene are displayed in white color with a black background.
