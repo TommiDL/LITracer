@@ -1,4 +1,11 @@
 ## Head
+## v0.3.0
+-   Third release of the code:
+    Now 3 functionalities avaiable:
+    -   demo: Generate a demo image with 3 different rendering algorithms
+    -   pfm2png: convert a PFM file to a PNG image
+    -   png2pfm: convert a PNG image to a PFM file
+
 ## v0.2.3
 -   Fix an issue with the triangle shape [#17](https://github.com/TommiDL/LITracer/pull/17)
 
