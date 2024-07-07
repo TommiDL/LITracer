@@ -1,8 +1,5 @@
 package org.example
 
-import com.github.ajalt.clikt.core.PrintMessage
-import kotlin.Exception
-
 data class GrammarError (val location: SourceLocation, override val message: String ) : Exception("Grammar error at $location: $message"){
     /**
      * An error found by the lexer/parser while reading a scene file

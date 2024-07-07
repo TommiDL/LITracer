@@ -1,7 +1,5 @@
 package org.example
 
-import java.io.InputStream
-
 /**
  * Class InputStream: uses a stream for reading from a file
  * This class implements a wrapper around a stream, with the following additional capabilities:
@@ -53,7 +51,7 @@ class InputStream {
      *         """Push a character back to the stream"""
      */
     fun unread_char(ch: Char) {
-        require(this.saved_char == '\u0000')
+        require(this.saved_char == '\u0000') // NB: catch the exception when you use it
         this.saved_char = ch
         this.location = this.saved_location.copy()
     }
