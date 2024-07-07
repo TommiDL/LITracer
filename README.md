@@ -7,7 +7,7 @@
 # LITracer
 **LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
 
-This raytracer was developed during Professor Maurizio Tomasi's course [Numerical techniques for the generation of photorealistic images](https://ziotom78.github.io/raytracing_course/)
+This raytracer was developed during Professor [Maurizio Tomasi](https://github.com/ziotom78)'s course [Numerical techniques for the generation of photorealistic images](https://ziotom78.github.io/raytracing_course/)
 
 The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
 
