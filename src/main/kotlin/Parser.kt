@@ -1,6 +1,9 @@
 
 import org.example.*
 
+/**
+ * The Parser class check the correct behavior of the grammar in the scene definition file
+ */
 class Parser {
 
 
@@ -9,7 +12,12 @@ class Parser {
      */
     fun expect_symbol(stream: InputStream, symbol: String) {
         val token: Token? = stream.read_token()
-        if ((token !is Token.SymbolToken) or ((token as Token.SymbolToken).symbol != symbol)) {
+        if (token !is Token.SymbolToken)
+        {
+            throw GrammarError(token!!.location, "got $token instead of $symbol")
+        }
+        if ((token as Token.SymbolToken).symbol != symbol)
+        {
             throw GrammarError(token.location, "got $token instead of $symbol")
         }
     }
