@@ -1,5 +1,6 @@
 package org.example
 
+import Render
 import com.github.ajalt.clikt.core.subcommands
 import pfm2png
 import png2pfm
@@ -12,4 +13,4 @@ import png2pfm
  *
  * @argv = the command-line arguments
  */
-fun main(argv:Array<String>) = Selection().subcommands(Demo(), pfm2png(), png2pfm()).main(argv)
+fun main(argv:Array<String>) = Selection().subcommands(Render(), Demo(), pfm2png(), png2pfm()).main(argv)

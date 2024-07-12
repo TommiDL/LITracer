@@ -104,7 +104,7 @@ class InputStream {
      *         """Read a token from the stream"""
      */
     fun read_token():Token? {
-        val SYMBOLS = listOf('(', ',', ')', '{', '}', '[', ']', ';', ':', '!', '?', '*', '/')
+        val SYMBOLS = listOf('(', ',', ')', '{', '}', '[', ']', ';', ':', '!', '?', '*', '/', '<', '>')
         var result:Token?
 
         if(this.saved_token != null){
@@ -147,7 +147,7 @@ class InputStream {
      *        """Make as if `token` were never read from `input_file`"""
      */
     fun unread_token(token:Token){
-        require(this.saved_token != null)
+        require(this.saved_token == null)
         this.saved_token = token
     }
 

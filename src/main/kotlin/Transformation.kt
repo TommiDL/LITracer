@@ -377,3 +377,10 @@ fun scalar_transformation(s:Float=1f):Transformation
         invmatrix = HomMatrix(_scalar_tranformation_array(1/s, 1/s, 1/s))
     )
 }
+fun scalar_transformation(v:Vec=Vec(1f,1f,1f)):Transformation
+{
+    return Transformation(
+        matrix = HomMatrix(_scalar_tranformation_array(v.x, v.y, v.z)),
+        invmatrix = HomMatrix(_scalar_tranformation_array(1/v.x, 1/v.y, 1/v.z))
+    )
+}
