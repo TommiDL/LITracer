@@ -25,6 +25,7 @@ enum class KeywordEnum(val Enum: Int) {
     FLOAT(19),
     POINT_LIGHT(20),
     TRIANGLE(21),
+    MESH(21),
 }
 
 val KEYWORDS: Map<String, KeywordEnum> = mapOf(
@@ -48,6 +49,7 @@ val KEYWORDS: Map<String, KeywordEnum> = mapOf(
     "perspective" to KeywordEnum.PERSPECTIVE,
     "float" to KeywordEnum.FLOAT,
     "point_light" to KeywordEnum.POINT_LIGHT,
-    "triangle" to KeywordEnum.TRIANGLE
+    "triangle" to KeywordEnum.TRIANGLE,
+    "mesh" to KeywordEnum.MESH
 )
 

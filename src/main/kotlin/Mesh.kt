@@ -1,7 +1,5 @@
 package org.example
 
-import java.io.InputStream
-
 /**
  * A class representing indexes of vertices for a triangle.
  *
@@ -77,7 +75,7 @@ class Mesh :Shape{
      * @material = the material properties of the mesh (default is a basic material)
      */
     constructor(
-        stream: InputStream,
+        stream: java.io.InputStream,
         transformation:Transformation=Transformation(),
         material: Material=Material()
     )

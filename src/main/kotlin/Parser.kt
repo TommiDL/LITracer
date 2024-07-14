@@ -314,6 +314,34 @@ class Parser {
 
     }
 
+    fun parse_mesh(stream: InputStream, scene: Scene): Mesh
+    {
+        val keywords:KeywordEnum=expect_keywords(stream, listOf(KeywordEnum.MESH))
+
+        expect_symbol(stream, "(")
+
+        val mesh_file_name:String=expect_string(stream)
+        expect_symbol(stream, ",")
+        val material_name:String=expect_identifier(stream)
+
+        if(material_name !in scene.materials.keys){
+            throw GrammarError(stream.location, "got unknown material with name $material_name")
+        }
+
+        expect_symbol(stream, ",")
+        val transformation:Transformation=parse_transformation(stream, scene)
+        expect_symbol(stream, ")")
+
+        return Mesh(
+            stream=FileInputStream(mesh_file_name),
+            transformation = transformation,
+            material = scene.materials[material_name]!!
+        )
+
+
+    }
+
+
     fun parse_plane(stream: InputStream, scene: Scene) : Plane
     {
         val keywords:KeywordEnum=expect_keywords(stream, listOf(KeywordEnum.PLANE))
@@ -418,6 +446,12 @@ class Parser {
             {
                 stream.unread_token(what)
                 scene.world.add(parse_plane(stream, scene))
+            }
+
+            else if(what.keyword == KeywordEnum.MESH)
+            {
+                stream.unread_token(what)
+                scene.world.add(parse_mesh(stream, scene))
             }
 
             else if(what.keyword == KeywordEnum.CAMERA)
