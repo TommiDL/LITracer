@@ -15,7 +15,7 @@ class ParserTest
     {
 
         var str:String=""
-        for(k in listOf('(', ',', ')', '{', '}', '[', ']', ';', ':', '!', '?', '*', '/'))
+        for(k in listOf('(', ',', ')', '{', '}', '[', ']', ';', ':', '!', '?', '*', '/', '/', '/'))
         {
             str+=k+"\n"
         }
@@ -28,11 +28,9 @@ class ParserTest
 
         val stream: InputStream=InputStream(line)
 
-        for(k in listOf('(', ',', ')', '{', '}', '[', ']', ';', ':', '!', '?', '*', '/'))
+        for(k in listOf('(', ',', ')', '{', '}', '[', ']', ';', ':', '!', '?', '*', '/')) {
             parse.expect_symbol(stream, k.toString())
-
-        assertFailsWith<GrammarError> {
-            parse.expect_symbol(stream, ">")
+            println(k)
         }
         assertFailsWith<GrammarError> {
             parse.expect_symbol(stream, ">")
@@ -434,7 +432,7 @@ class ParserTest
                     "\n" +
                     "# We can split a definition over multiple lines and indent them as we like\n" +
                     "material sky_material(\n" +
-                    "    diffuse(image(\"sky-dome.pfm\")),\n" +
+                    "    diffuse(image(\"memorial.pfm\")),\n" +
                     "    uniform(<0.7, 0.5, 1>)\n" +
                     ")\n" +
                     "\n" +
