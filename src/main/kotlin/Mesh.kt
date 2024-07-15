@@ -212,6 +212,21 @@ class Mesh :Shape{
             }
         }
 
+        var res:HitRecord?=null
+        if(closest!=null)
+        {
+            res=HitRecord(
+                world_point = this.transformation*closest!!.world_point,
+                normal = this.transformation* closest!!.normal,
+                surface_point = closest!!.surface_point,
+                t = closest!!.t,
+                ray = ray,
+                material=closest!!.material
+            )
+
+            return res
+        }
+
         return closest
     }
 

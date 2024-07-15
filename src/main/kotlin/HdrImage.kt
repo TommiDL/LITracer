@@ -290,7 +290,7 @@ class HdrImage(val width:Int = 0, val height:Int=0)
 
     constructor(width: Int, height: Int, pixels:Array<Color>):this(width = width, height=height)
     {
-        this.pixels=pixels
+        this.pixels=pixels.clone()
     }
 
     /**

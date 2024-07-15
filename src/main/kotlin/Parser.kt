@@ -2,6 +2,7 @@
 import org.example.*
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import kotlin.math.PI
 
 /**
  * The Parser class check the correct behavior of the grammar in the scene definition file
@@ -16,11 +17,11 @@ class Parser {
         val token: Token? = stream.read_token()
         if (token !is Token.SymbolToken)
         {
-            throw GrammarError(token!!.location, "got $token instead of $symbol")
+            throw GrammarError(token!!.location, "got \"$token\" instead of \"$symbol\"")
         }
         if ((token as Token.SymbolToken).symbol != symbol)
         {
-            throw GrammarError(token.location, "got $token instead of $symbol")
+            throw GrammarError(token.location, "got \"$token\" instead of \"$symbol\"")
         }
     }
 
@@ -43,14 +44,14 @@ class Parser {
             val variable_name = token.identifier
 
             if (variable_name !in scene.float_variables) {
-                throw GrammarError(token.location, "Unknown variable $token")
+                throw GrammarError(token.location, "Unknown variable \"$token\"")
             }
 
             return scene.float_variables[variable_name]!!
         }
 
         //not number or var
-        throw GrammarError(token!!.location, "got $token instead of a number")
+        throw GrammarError(token!!.location, "got \"$token\" instead of a number")
     }
 
 
@@ -64,12 +65,12 @@ class Parser {
                 var list_str: String = ""
                 keywords.forEach { list_str += it.toString() + ", " }
 
-                throw GrammarError(token.location, "got ${token.keyword} instead of expected keywords: (${list_str})")
+                throw GrammarError(token.location, "got \"${token.keyword}\" instead of expected keywords: (${list_str})")
             }
             else return token.keyword
         }
 
-        throw GrammarError(token!!.location, "got $token instead of expected keywords: (${keywords.forEach{it.toString()+", "} })")
+        throw GrammarError(token!!.location, "got \"$token\" instead of expected keywords: (${keywords.forEach{it.toString()+", "} })")
 
     }
 
@@ -79,7 +80,7 @@ class Parser {
 
         if(token !is Token.StringToken)
         {
-            throw GrammarError(token!!.location, "got $token instead of String")
+            throw GrammarError(token!!.location, "got \"$token\" instead of String")
         }
 
         return token.string
@@ -89,7 +90,7 @@ class Parser {
     {
         val token:Token?=stream.read_token()
         if (token !is Token.IdentifierToken)
-            throw GrammarError(token!!.location, "got $token instead of identifier")
+            throw GrammarError(token!!.location, "got \"$token\" instead of identifier")
 
         return token.identifier
     }
@@ -161,7 +162,7 @@ class Parser {
                 return ImagePigment(image)
             }//
 
-            else->throw GrammarError(stream.location, "Expected  Pigment's Keyword Token but $keyword Token gived instead")
+            else->throw GrammarError(stream.location, "Expected  Pigment's Keyword Token but \"$keyword\" Token gived instead")
 
         }
 
@@ -189,7 +190,7 @@ class Parser {
                     return SpecularBRDF(pigment)
                 }
                 else->{
-                    throw throw GrammarError(stream.location, "Expected  BRDF's Keyword Token but $keyword Token gived instead")
+                    throw throw GrammarError(stream.location, "Expected  BRDF's Keyword Token but \"$keyword\" Token gived instead")
                 }
             }
         }catch (e:FileNotFoundException)
@@ -252,20 +253,20 @@ class Parser {
             else if(transformation_kw == KeywordEnum.ROTATION_X )
             {
                 expect_symbol(stream, "(")
-                res*= rotation(u=Vec(x=1f, y=0f, z=0f), theta = expect_number(stream, scene))
+                res*= rotation(u=Vec(x=1f, y=0f, z=0f), theta = expect_number(stream, scene)*(2* PI.toFloat())/360f)
                 expect_symbol(stream, ")")
 
             }
             else if(transformation_kw == KeywordEnum.ROTATION_Y )
             {
                 expect_symbol(stream, "(")
-                res*= rotation(u=Vec(x=0f, y=1f, z=0f), theta = expect_number(stream, scene))
+                res*= rotation(u=Vec(x=0f, y=1f, z=0f), theta = expect_number(stream, scene)*(2* PI.toFloat())/360f)
                 expect_symbol(stream, ")")
             }
             else if(transformation_kw == KeywordEnum.ROTATION_Z )
             {
                 expect_symbol(stream, "(")
-                res*= rotation(u=Vec(x=0f, y=0f, z=1f), theta = expect_number(stream, scene))
+                res*= rotation(u=Vec(x=0f, y=0f, z=1f), theta = expect_number(stream, scene)*(2* PI.toFloat())/360f)
                 expect_symbol(stream, ")")
             }
             else if(transformation_kw == KeywordEnum.SCALING )
@@ -302,7 +303,7 @@ class Parser {
         val material_name:String=expect_identifier(stream)
 
         if(material_name !in scene.materials.keys){
-            throw GrammarError(stream.location, "got unknown material with name $material_name")
+            throw GrammarError(stream.location, "got unknown material with name \"$material_name\"")
         }
 
         expect_symbol(stream, ",")
@@ -325,7 +326,7 @@ class Parser {
         val material_name:String=expect_identifier(stream)
 
         if(material_name !in scene.materials.keys){
-            throw GrammarError(stream.location, "got unknown material with name $material_name")
+            throw GrammarError(stream.location, "got unknown material with name \"$material_name\"")
         }
 
         expect_symbol(stream, ",")
@@ -350,7 +351,7 @@ class Parser {
         val material_name:String=expect_identifier(stream)
 
         if(material_name !in scene.materials.keys){
-            throw GrammarError(stream.location, "got unknown material with name $material_name")
+            throw GrammarError(stream.location, "got unknown material with name \"$material_name\"")
         }
 
         expect_symbol(stream, ",")
@@ -411,7 +412,7 @@ class Parser {
 
             if(what !is Token.KeywordToken)
             {
-                throw GrammarError(what!!.location, "Expected a Keyword instead of $what")
+                throw GrammarError(what!!.location, "Expected a Keyword instead of \"$what\"")
             }
 
             if(what.keyword==KeywordEnum.FLOAT)

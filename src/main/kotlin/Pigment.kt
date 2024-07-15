@@ -18,6 +18,7 @@ open class Pigment() {
     {
         return false
     }
+
 }
 
 /**
@@ -101,4 +102,16 @@ class ImagePigment(val Image : HdrImage) : Pigment() {
 
         return res
     }
+
+    operator fun times(factor:Float):ImagePigment
+    {
+        val new_image:HdrImage=HdrImage(this.Image.width, this.Image.height, this.Image.pixels)
+        new_image.pixels.forEach {
+            it.r*=factor
+            it.g*=factor
+            it.b*=factor
+        }
+        return ImagePigment(new_image)
+    }
+
 }
