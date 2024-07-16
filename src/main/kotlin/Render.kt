@@ -9,6 +9,8 @@ import org.example.*
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import kotlin.math.round
+import kotlin.math.sqrt
 
 class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from a scene defined in input file")
 {
@@ -18,6 +20,12 @@ class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from
         "--filename",
         help="File path in which the scene is defined"
     )
+
+    val samples:Int by option(
+        "--samples-per-pixel", "-samples",
+        help = "number of ray per pixels to process the color using importance sampling [default 1]\u0085" +
+                "Please use a quadratic power as number, else it will be approximated"
+    ).int().default(1)
 
     val alg:String by option(
         "--algorithm", "-alg",
@@ -33,7 +41,7 @@ class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from
     // path tracer parameters
     val n_ray:Int by option(
         "--nray",
-        help = "number of rays for pathtracing algorithm  [default value 10]"
+        help = "number of rays for surface scattering in pathtracing algorithm  [default value 10]"
     ).int().default(10)
     val max_depth:Int by option(
         "--max-depth", "-md" ,
@@ -156,9 +164,9 @@ class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from
             return
         }
 
+        val squares_samples:Int= round(sqrt(samples.toFloat())).toInt()
 
-
-        tracer.fire_all_ray(){ray: Ray ->  renderer(ray)}
+        tracer.fire_all_ray(pcg = PCG(), samples = (squares_samples*squares_samples), func = {ray: Ray ->  renderer(ray)})
 
 
         try {
