@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import kotlin.math.PI
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
@@ -265,7 +266,7 @@ class ParserTest
         assertTrue(
             are_matr_close(
                 transformation.matrix,
-                (translation(Vec(0f, 0f, 100f)) * rotation(Vec(x=0f, y=1f, z=0f), theta = 7f) ).matrix
+                (translation(Vec(0f, 0f, 100f)) * rotation(Vec(x=0f, y=1f, z=0f), theta = 7f*2* PI.toFloat()/360) ).matrix
             )
         )
 
@@ -284,7 +285,7 @@ class ParserTest
         assertTrue(
             are_matr_close(
                 transformation.matrix,
-                ( rotation(u=Vec(z=1f), 30f) * translation(Vec(-4f, 0f, 1f) )).matrix
+                ( rotation(u=Vec(z=1f), 30f*2* PI.toFloat()/360) * translation(Vec(-4f, 0f, 1f) )).matrix
             )
         )
 
@@ -401,10 +402,13 @@ class ParserTest
         assertTrue(camera is PerspectiveCamera)
         assertTrue(are_similar(camera.distance, 1f))
         assertTrue(are_similar(camera.aspect_ratio, 1f))
+
+        println(camera.transformation)
+        println((rotation(u=Vec(z=1f, x=0f, y=0f),30f) * translation(Vec(-4f, 0f, 1f))))
         assertTrue(
             are_matr_close(
                 camera.transformation.matrix,
-                (rotation(u=Vec(z=1f, x=0f, y=0f),30f) * translation(Vec(-4f, 0f, 1f))).matrix
+                (rotation(u=Vec(z=1f, x=0f, y=0f),30f*2* PI.toFloat()/360) * translation(Vec(-4f, 0f, 1f))).matrix
             )
         )
 
@@ -414,7 +418,17 @@ class ParserTest
         assertTrue(
             are_matr_close(
                 camera.transformation.matrix,
-                (rotation(u=Vec(z=0f, x=0f, y=1f),0f) * translation(Vec(5f, 6f, -7f))).matrix
+                (rotation(u=Vec(z=0f, x=0f, y=1f),0f*2* PI.toFloat()/360f) * translation(Vec(5f, 6f, -7f))).matrix
+            )
+        )
+
+        camera=parse.parse_camera(stream, scene)
+        assertTrue(camera is PerspectiveCamera)
+        assertTrue(are_similar(camera.aspect_ratio, 1f))
+        assertTrue(
+            are_matr_close(
+                camera.transformation.matrix,
+                (rotation(u=Vec(z=1f, x=0f, y=0f),30f*2* PI.toFloat()/360f) * translation(Vec(-4f, 0f, 1f))).matrix
             )
         )
 
