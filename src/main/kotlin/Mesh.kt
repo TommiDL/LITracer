@@ -214,6 +214,20 @@ class Mesh :Shape{
             }
         }
 
+        if(closest!=null)
+        {
+            val res=HitRecord(
+                world_point = this.transformation*closest!!.world_point,
+                normal = this.transformation* closest!!.normal,
+                surface_point = closest!!.surface_point,
+                t = closest!!.t,
+                ray = ray,
+                material=closest!!.material
+            )
+
+            return res
+        }
+
         return closest
     }
 
