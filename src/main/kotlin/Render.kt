@@ -27,6 +27,11 @@ class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from
                 "Please use a quadratic power as number, else it will be approximated"
     ).int().default(1)
 
+    val samples_seed:Int by option(
+        "--samples-seed", "-seed",
+        help = "Seed for the importance sampling rays production"
+    ).int().default(0)
+
     val alg:String by option(
         "--algorithm", "-alg",
         help = "Select rendering algorithm type:\u0085" +
@@ -166,7 +171,7 @@ class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from
 
         val squares_samples:Int= round(sqrt(samples.toFloat())).toInt()
 
-        tracer.fire_all_ray(pcg = PCG(), samples = (squares_samples*squares_samples), func = {ray: Ray ->  renderer(ray)})
+        tracer.fire_all_ray(pcg = PCG(state = samples_seed.toULong()), samples = (squares_samples*squares_samples), func = {ray: Ray ->  renderer(ray)})
 
 
         try {
