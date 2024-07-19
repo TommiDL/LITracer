@@ -146,7 +146,13 @@ class Render:CliktCommand(printHelpOnEmptyArgs = true,help="Render an image from
     override fun run()
     {
 
-        this.scene=declare_world()
+        try {
+            this.scene=declare_world()
+        }catch (e:Exception)
+        {
+            println(e)
+            return
+        }
 
         if(this.scene.camera==null)
         {
