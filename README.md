@@ -1,16 +1,33 @@
-# LITracer
-This is a very simple [Ray-Tracer](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language 
+![GitHub release (with filter)](https://img.shields.io/github/v/release/TommiDL/LITracer?include_prereleases&filter=v0.3.0)
+![GitHub top language](https://img.shields.io/github/languages/top/TommiDL/LITracer)
+![GitHub contributors](https://img.shields.io/github/contributors/TommiDL/LITracer)
+![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/TommiDL/LITracer)
+![GitHub](https://img.shields.io/github/license/TommiDL/LITracer)
 
+# LITracer
+**LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
+
+This raytracer was developed during Professor [Maurizio Tomasi](https://github.com/ziotom78)'s course [Numerical techniques for the generation of photorealistic images](https://ziotom78.github.io/raytracing_course/)
+
+The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
 
 ## Installation
 
+To obtain this code, in order to run or modify the program, download the zip file from the ![v0.3.0](https://github.com/TommiDL/LITracer/archive/refs/tags/v0.3.0.zip) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
+
+The presence of **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
+
+
+To satisfy the requested dependencies in order to run this code use the command `./gradlew build`.
+
+Finally run the command `./gradlew test` to check the correct behavior of the code.
+
 ## Usage
-The program was made using Gradle and can perform three tasks:
+**LITracer** can perform three tasks:
 
  - ### Demo  
      
-   Create a pfm file of a demo scene and (optionally) a PNG image allowing the user to choose between a perspective or an orthogonal point of view
-   (in fondo aggiungere due foto linkate) 
+   Create a pfm file of a demo scene and (optionally) a PNG image, allowing the user to choose between a perspective or an orthogonal point of view
 
    The available rendering algorithms are the following:
    - onoff:         the objects of the scene are displayed in white color with a black background.
@@ -98,7 +115,7 @@ Demo image obtained using flat tracing algorithm, on the left image generated us
 #### Pathtracing renderer examples
 Here some examples obtained using `./gradlew run --args="demo -alg pathtracing"`.
 
-The following examples of the demo image were generated using the path-tracing algorithm for different values of the parameter `--nray`.
+The following examples of the demo image were generated using the path-tracing algorithm for different values of the parameter `--nray` with perspective camera.
 
 Each one of those images is obtained with a value of max depth fixed at 3.
 
@@ -121,11 +138,31 @@ On the left demo image obtained with nray=1, on the right demo image obtained wi
 On the left demo image obtained with nray=15, on the right demo image obtained with nray=20.
 </em></p>
 
+The following example is generated using orthogonal camera with parameters `--nray=10`, a traslation of 0.5 along z axis and of 10 along x axis and a rotation of 45 degrees relative to the z axis
+
+<div align="center">
+ <img src="example_images/pt_10nray_ortho.png", width="500">
+</div>
+<p align="center"><em>
+ Demo image with orthogonal camera (800x500 pixels)
+</em></p>
+
+Finally some examples generated using a fixed value of `--nray=10` with different values of the max depth using perspective camera
+
+<div align="center">
+<img src="example_images/pt_1md.png", width="300">
+<img src="example_images/pt_2md.png", width="300">
+<img src="example_images/pt_3md.png", width="300">
+</div>
+
+<p align="center"><em>
+From the left to the right: (1) max depth = 1, (2) max depth = 2, (3) max depth = 3
+</em></p>
 
 
 ## History
 
-See the file [CHANGELOG.md](https://github.com/TommiDL/LITracer/blob/master/CHANGELOG.md)
+See the file [CHANGELOG.md](https://github.com/TommiDL/LITracer/blob/master/CHANGELOG.md) to have a full insight on LITracer's version history 
 
 ## License
 The code is released under the Apache License version 2.0. See the file [LICENSE.md](https://github.com/TommiDL/LITracer/blob/master/LICENSE)
