@@ -440,7 +440,7 @@ class HdrImage(val width:Int = 0, val height:Int=0)
     }
 
     /**
-     * Writes the HRD image to a LDR image file from a Stream of Output in the specified format:
+     * Writes the HDR image to a LDR image file from a Stream of Output in the specified format:
      * @stream = output stream
      * @format = image format (e.g. "png")
      * @gamma = gamma correction value
