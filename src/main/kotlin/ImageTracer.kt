@@ -42,6 +42,17 @@ class ImageTracer(val image:HdrImage, val camera: Camera)
             {
                 var color:Color=Color()
 
+                //if samples=1 use default values
+                if (samples==1)
+                {
+                    val ray:Ray=this.fire_ray(col, row)
+                    color=func(ray)
+                    this.image.set_pixel(col, row, color)
+                    counter+=1
+                    continue
+                }
+
+
                 for (i in 0 until  samples)
                 {
                     val ray:Ray=this.fire_ray(col, row, u_pixel = i*side+pcg.random_float(), v_pixel = i*side+pcg.random_float())

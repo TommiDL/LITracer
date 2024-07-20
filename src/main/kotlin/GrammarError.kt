@@ -10,6 +10,5 @@ package org.example
  *     - `col_num`: the column number where the error was discovered (starting from 1)
  *     - `message`: a user-friendly error message
  */
-data class GrammarError (val location: SourceLocation, override val message: String ) : Exception("Grammar error at $location: $message"){
-
-}
+data class GrammarError (val location: SourceLocation, override val message: String ) : Exception("Grammar error at $location: $message\n\n")
+{}

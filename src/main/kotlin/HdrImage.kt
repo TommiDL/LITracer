@@ -286,7 +286,7 @@ fun read_png(
  */
 class HdrImage(val width:Int = 0, val height:Int=0)
 {
-    var pixels = Array<Color>(size = width * height) {Color()}
+    var pixels = Array<Color>(size = width * height) {Color(0f,0f,0f)}
 
     constructor(width: Int, height: Int, pixels:Array<Color>):this(width = width, height=height)
     {
