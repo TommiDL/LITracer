@@ -2,7 +2,6 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/TommiDL/LITracer)
 ![GitHub contributors](https://img.shields.io/github/contributors/TommiDL/LITracer)
 ![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/TommiDL/LITracer)
-![GitHub](https://img.shields.io/github/license/TommiDL/LITracer)
 
 # LITracer
 **LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
