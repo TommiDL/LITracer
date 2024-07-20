@@ -147,7 +147,7 @@ class AxisAlignedBoundingBox
                         (if (xintersection and yintersection) interval_intersection(txmin, txmax, tymin, tymax) else true) and
                         (if (xintersection and zintersection) interval_intersection(txmin, txmax, tzmin, tzmax) else true) and
                         (if (yintersection and zintersection) interval_intersection(tymin, tymax, tzmin, tzmax) else true)
-                ) and (xintersection or yintersection or zintersection)
+                ) and (xintersection or yintersection or zintersection) //no intersection at all
                 )
     }
 

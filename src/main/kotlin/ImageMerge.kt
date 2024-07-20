@@ -29,7 +29,13 @@ class ImageMerge:CliktCommand(printHelpOnEmptyArgs = true,help="Merge PFM file t
         var files:Array<HdrImage> = arrayOf<HdrImage>()
 
         args.forEach {
-            files += read_pfm_image(FileInputStream(it))
+            try {
+                files += read_pfm_image(FileInputStream(it))
+            }catch (e:Exception)
+            {
+                println(e)
+                return
+            }
         }
 
         val w=files[0].width
@@ -40,7 +46,7 @@ class ImageMerge:CliktCommand(printHelpOnEmptyArgs = true,help="Merge PFM file t
         {
             if ((i.width!=w) or (i.height!=h))
             {
-                throw InvalidPfmFileFormat("Error: To proceed with merging files have to be of same size")
+                println(InvalidPfmFileFormat("Error: To proceed with merging files have to be of same size"))
             }
         }
 

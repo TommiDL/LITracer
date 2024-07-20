@@ -100,12 +100,12 @@ class MeshTest
 //            Color(r= Random.nextFloat(), g= Random.nextFloat(), b= Random.nextFloat())
             val BLACK:Color=Color()
 
-            tracer.fire_all_ray() { ray: Ray ->
+            tracer.fire_all_ray(func={ ray: Ray ->
                 val hit=world.ray_intersection(ray)!=null
 
                 if (hit) WHITE
                 else BLACK
-            }
+            })
 
             try {
                 val filename="meshtest.png"
