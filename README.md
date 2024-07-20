@@ -63,7 +63,7 @@ See the ![tutorial](Scene_File_Tutorial.md) to make a scene declaration file or 
 ### Render usage:
  Basic Usage of render command:
  
-      `./gradlew run --args="render <scene_file.txt> --algorithm=<render_alg> -pfm <output_pfm_file_path>  -png <output_png_file_path>"`
+    `./gradlew run --args="render <scene_file.txt> --algorithm=<render_alg> -pfm <output_pfm_file_path>  -png <output_png_file_path>"`
 
  All the images will be saved in the `images` folder.
 
@@ -86,6 +86,8 @@ See the ![tutorial](Scene_File_Tutorial.md) to make a scene declaration file or 
    - `-md`, `--max-depth`: set max depth of bouncing per ray [default value 3]
    - `-rr`, `--russian-roul`: set the value of depth to start suppressing the ray bouncing probability [default value 3]
 
+For further details execute `./gradlew run --args="render"` and get the complete usage documentation.
+
 ## Demo  
      
    Create a pfm file of a demo scene and (optionally) a PNG image. This functionality is meant to take confidence with the usage of the code.
@@ -95,7 +97,7 @@ See the ![tutorial](Scene_File_Tutorial.md) to make a scene declaration file or 
    #### Demo usage:
    Basic usage of demo command
    
-       `./gradlew run --args="demo --camera=<camera_type> --algorithm=<render_alg> -pfm <output_pfm_file_path>  -png <output_png_file_path>"`
+    `./gradlew run --args="demo --camera=<camera_type> --algorithm=<render_alg> -pfm <output_pfm_file_path>  -png <output_png_file_path>"`
 
 
    For further details execute `./gradlew run --args="demo"` and get the complete usage documentation.
