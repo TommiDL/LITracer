@@ -27,11 +27,11 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
 ## Usage
 **LITracer** can perform five tasks:
 
- - ![Render](##render)
- - ![Demo](##demo)
- - ![pfm2png](##pfm2png)
- - ![png2pfm](##png2pfm)
- - ![Merge-Images](##merge-images)
+ - ![Render](##-render)
+ - ![Demo](##-demo)
+ - ![pfm2png](##-pfm2png)
+ - ![png2pfm](##-png2pfm)
+ - ![Merge-Images](##-merge-images)
 
 
 
