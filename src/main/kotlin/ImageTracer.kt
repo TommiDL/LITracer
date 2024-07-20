@@ -52,6 +52,7 @@ class ImageTracer(val image:HdrImage, val camera: Camera)
                     continue
                 }
 
+
                 for (i in 0 until  samples)
                 {
                     val ray:Ray=this.fire_ray(col, row, u_pixel = i*side+pcg.random_float(), v_pixel = i*side+pcg.random_float())

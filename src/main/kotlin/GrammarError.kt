@@ -1,4 +1,5 @@
 package org.example
+
 /**
  * An error found by the lexer/parser while reading a scene file
  *
