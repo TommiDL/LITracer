@@ -47,6 +47,7 @@ class ImageMerge:CliktCommand(printHelpOnEmptyArgs = true,help="Merge PFM file t
             if ((i.width!=w) or (i.height!=h))
             {
                 println(InvalidPfmFileFormat("Error: To proceed with merging files have to be of same size"))
+
             }
         }
 
