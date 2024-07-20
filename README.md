@@ -27,12 +27,12 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
 ## Usage
 **LITracer** can perform five tasks:
 
- - ![Render](#render): render an image from a scene defined in a text file
- - ![Demo](#demo): Create a demo image, useful to gain confidence with the software usage.
- - ![pfm2png](#pfm2png): convert a PFM file into a PNG image using the requested conversion parameters
- - ![png2pfm](#png2pfm): convert a PNG image into a PFM file usable to define the pigment of objects in scene's declarations
+ - [Render](#render): render an image from a scene defined in a text file
+ - [Demo](#demo): Create a demo image, useful to gain confidence with the software usage.
+ - [pfm2png](#pfm2png): convert a PFM file into a PNG image using the requested conversion parameters
+ - [png2pfm](#png2pfm): convert a PNG image into a PFM file usable to define the pigment of objects in scene's declarations
  
- - ![Merge-Images](#merge-images): Merge multiple images into one,
+ - [Merge-Images](#merge-images): Merge multiple images into one,
    
    Useful to lower the noise using different importance sampling random seeds (see ![Render]())
 
