@@ -126,10 +126,18 @@ For further details execute `./gradlew run --args="render"` and get the complete
    For further details execute `./gradlew run --args="png2pfm"` and get the complete usage documentation.
 
 ## Merge-Images
-   
+   The command take in input several PFM files of the same scene and merge them in a singular PFM file and PNG image to create a less noisy image of the scene.
+   The single PFM file has to be created using the render command, passing it unique values for the importance sampling seed with the flag `--samples-seed` .
+
+### Merge-Images usage:
+
+    `./gradlew run --args="image-merge [<input_pfm_files>] -pfm <output_pfm_path> -png <output_png_path>"`
+
+   For further details execute `./gradlew run --args="image-merge"` and get the complete usage documentation.
 
 
-### Examples
+
+### Gallery
 
 #### On-Off renderer examples
 
