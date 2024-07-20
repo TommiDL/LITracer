@@ -137,14 +137,29 @@ For further details execute `./gradlew run --args="render"` and get the complete
 
 
 
-### Gallery
+## Gallery
+
+### Algorithms examples
+
+Here a comparison of the same image using the three different algorithms:
+<div align="center">
+  <img src="" width="300"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="" width="300"/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+   <img src="" width="300"/>
+
+</div>
+
+<p align="center"><em>
+ The image on the left  was generated using perspective camera, the image on the right was generated using orthogonal camera
+</p></em>
+
 
 #### On-Off renderer examples
 
 Here is an example made with 11 spheres showing the behavior of on-off renderer using the two different choices of camera
-
-This image is not obtainable from the flag `--algorithm=onoff`, this is only an example of the renderer behavior
-
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/TommiDL/LITracer/pathtracing/example_images/onoff_example_perspective.png" width="300"/>
