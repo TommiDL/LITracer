@@ -7,6 +7,8 @@
 # LITracer
 **LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
 
+**LITracer** allows the user to define a scene using different geometrical objects and use different rendering algorithms to generate a photorealistic image of the scene.
+
 This raytracer was developed during Professor [Maurizio Tomasi](https://github.com/ziotom78)'s course [Numerical techniques for the generation of photorealistic images](https://ziotom78.github.io/raytracing_course/)
 
 The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
@@ -23,11 +25,20 @@ To satisfy the requested dependencies in order to run this code use the command 
 Finally run the command `./gradlew test` to check the correct behavior of the code.
 
 ## Usage
-**LITracer** can perform three tasks:
+**LITracer** can perform five tasks:
 
- - ### Demo  
-     
-   Create a pfm file of a demo scene and (optionally) a PNG image, allowing the user to choose between a perspective or an orthogonal point of view
+ - ![Render](##render)
+ - ![Demo](##demo)
+ - ![pfm2png](##pfm2png)
+ - ![png2pfm](##png2pfm)
+ - ![Merge-Images](##merge-images)
+
+
+
+## Render
+   Reads a scene declaration from a text file  and create a pfm file and a png image of the scene using different rendering algorithm.
+
+   The user is allowed to choose between perspective or orthognal poin of view
 
    The available rendering algorithms are the following:
    - onoff:         the objects of the scene are displayed in white color with a black background.
@@ -41,6 +52,11 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
 
      Here some [examples](#pathtracing-renderer-examples) using pathtracing rendering algorithm.
 
+
+## Demo  
+     
+   Create a pfm file of a demo scene and (optionally) a PNG image. This functionality is meant to take confidence with the usage of the code
+
    The demo command also allows the user to move inside the scene specifying the translation and rotation movements.
 
    #### Demo usage:
@@ -52,9 +68,9 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
    For further details execute `./gradlew run --args="demo"` and get the complete usage documentation.
    
 
-   
- - ### pfm2png
-      Execute conversion from a PFM file to a PNG image with the specified values of screen's gamma and clamp factor
+  
+  ## pfm2png
+   Execute conversion from a PFM file to a PNG image with the specified values of screen's gamma and clamp factor
 
    #### pfm2png usage:
    Usage of pfm2png
@@ -65,16 +81,18 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
    For further details execute `./gradlew run --args="pfm2png"` and get the complete usage documentation.
 
 
- - ### png2pfm
-    Execute conversion from a PNG image to a PFM file with the specified values of screen's gamma and clamp factor
+## png2pfm
+   Execute conversion from a PNG image to a PFM file with the specified values of screen's gamma and clamp factor
 
-    #### png2pfm usage:
+#### png2pfm usage:
 
-       `./gradlew run --args="png2pfm <output_PFM_file>.pfm <clamp value (float)> <gamma value of the screen (float)> <input_png_file>.png"`
+    `./gradlew run --args="png2pfm <output_PFM_file>.pfm <clamp value (float)> <gamma value of the screen (float)> <input_png_file>.png"`
    
 
    For further details execute `./gradlew run --args="png2pfm"` and get the complete usage documentation.
 
+## Merge-Images
+   
 
 
 ### Examples
