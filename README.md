@@ -15,7 +15,7 @@ The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programmin
 
 ## Installation
 
-To obtain this code, in order to run or modify the program, download the zip file from the ![v0.3.0](https://github.com/TommiDL/LITracer/archive/refs/tags/v0.3.0.zip) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
+To obtain this code, in order to run or modify the program, download the zip file from the ![latest](https://github.com/TommiDL/LITracer/releases/latest) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
 
 The presence of **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
 
@@ -27,18 +27,21 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
 ## Usage
 **LITracer** can perform five tasks:
 
- - ![Render](#-render)
- - ![Demo](#-demo)
- - ![pfm2png](#-pfm2png)
- - ![png2pfm](#-png2pfm)
- - ![Merge-Images](#-merge-images)
+ - ![Render](#-render): render an image from a scene defined in a text file
+ - ![Demo](#-demo): Create a demo image, useful to gain confidence with the software usage.
+ - ![pfm2png](#-pfm2png): convert a PFM file into a PNG image using the requested conversion parameters
+ - ![png2pfm](#-png2pfm): convert a PNG image into a PFM file usable to define the pigment of objects in scene's declarations
+ 
+ - ![Merge-Images](#-merge-images): Merge multiple images into one,
+   
+   Useful to lower the noise using different importance sampling random seeds (see ![Render]())
 
 
 
 ## Render
    Reads a scene declaration from a text file  and create a pfm file and a png image of the scene using different rendering algorithm.
 
-   The user is allowed to choose between perspective or orthognal poin of view
+   The user is allowed to choose between perspective or orthognal poin of view.
 
    The available rendering algorithms are the following:
    - onoff:         the objects of the scene are displayed in white color with a black background.
@@ -53,9 +56,57 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
      Here some [examples](#pathtracing-renderer-examples) using pathtracing rendering algorithm.
 
 
+     See the ![tutorial]() to make a scene declaration file or try using the ![example.txt]() file with the command:
+
+      `./gradlew run --args="render example.txt -pfm example  -png examples`
+
+     ### Scene declaration file
+
+     In the scene declaration file is possible to define 4 different families of variables:
+
+     - #### Float variables
+       Define a float variable that can be re-used inside the declaration file:
+       
+       - Declaration: `float <variable_name>(<variable_value>)`
+       - Example: `float x(10.3)`
+     - #### Material variables
+       Define a material variable that describe the behavior of the object in light's interaction.
+       A material is defined by two parameters:
+       - Emitted Radiance:
+       - BRDF:  
+     
+     In **LITracer** three different geometrical objects are avaiable 
+
+
+     ### Render usage:
+     Basic Usage of render command:
+     
+          `./gradlew run --args="render <scene_file.txt> --algorithm=<render_alg> -pfm <output_pfm_file_path>  -png <output_png_file_path>"`
+
+     All the images will be saved in the `images` folder.
+
+     **Useful flags**:
+     - `-pfm`, `--pfm-output`: set the name in wihch the software save the pfm output file [default value output.pfm]
+     - `-png`, `--png-output`: set the name in which the software save the png output file [default value null]
+     - `-alg`, `--algorithm`: Select rendering algorithm type [default value pathtracing]:
+       - onoff -> rendering in black&white format
+       - flat -> rendering in colored format
+       - pathtracing -> rendering with pathtracing alg
+     - `--bck-col`:set Background Color [default value black]
+     - `-w`, `--width`: set the width of the PNG image [default value 480]
+     - `-he`, `--height`: set the height of the PNG image [default value 480]
+
+     **Pathtracing useful flags**:
+     - `--nray`: set the number of scattered rays to generate after a surface collision in pathtracing algorithm [default value 10]
+
+     - `-samples`, `--samples-per-pixel`: set the number of ray per pixels to process the color using importance sampling [default 1]
+     - `-seed`, `--samples-seed`: set the seed for the importance sampling rays production
+     - `-md`, `--max-depth`: set max depth of bouncing per ray [default value 3]
+     - `-rr`, `--russian-roul`: set the value of depth to start suppressing the ray bouncing probability [default value 3]
+  
 ## Demo  
      
-   Create a pfm file of a demo scene and (optionally) a PNG image. This functionality is meant to take confidence with the usage of the code
+   Create a pfm file of a demo scene and (optionally) a PNG image. This functionality is meant to take confidence with the usage of the code.
 
    The demo command also allows the user to move inside the scene specifying the translation and rotation movements.
 
