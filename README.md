@@ -33,7 +33,7 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
  
  - [Merge-Images](#merge-images): Merge multiple images into one,
    
-   Useful to lower the noise using different importance sampling random seeds (see ![Render]())
+   Useful to lower the noise using different importance sampling random seeds (see [Render](#render-usage))
 
 
 
