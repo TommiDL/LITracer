@@ -362,6 +362,28 @@ class Parser {
 
     }
 
+
+
+    fun parse_cube(stream: InputStream, scene: Scene) : Cube
+    {
+        val keywords:KeywordEnum=expect_keywords(stream, listOf(KeywordEnum.CUBE))
+
+        expect_symbol(stream, "(")
+        val material_name:String=expect_identifier(stream)
+
+        if(material_name !in scene.materials.keys){
+            throw GrammarError(stream.location, "got unknown material with name \"$material_name\"")
+        }
+
+        expect_symbol(stream, ",")
+        val transformation:Transformation=parse_transformation(stream, scene)
+        expect_symbol(stream, ")")
+
+        return Cube(transformation=transformation, material = scene.materials[material_name]!!)
+
+    }
+
+
     fun parse_camera(stream: InputStream, scene:Scene) : Camera
     {
 
@@ -447,6 +469,12 @@ class Parser {
             {
                 stream.unread_token(what)
                 scene.world.add(parse_plane(stream, scene))
+            }
+
+            else if(what.keyword == KeywordEnum.CUBE)
+            {
+                stream.unread_token(what)
+                scene.world.add(parse_cube(stream, scene))
             }
 
             else if(what.keyword == KeywordEnum.MESH)
