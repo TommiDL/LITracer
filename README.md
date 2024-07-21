@@ -79,8 +79,12 @@ See the ![tutorial](Scene_File_Tutorial.md) to make a scene declaration file or 
 
    **Pathtracing useful flags**:
    - `--nray`: set the number of scattered rays to generate after a surface collision in pathtracing algorithm [default value 10]
+   
+     (exponential growth of time complexity)
 
    - `-samples`, `--samples-per-pixel`: set the number of ray per pixels to process the color using importance sampling [default 1]
+   
+     (linear growth of time complexity)
    - `-seed`, `--samples-seed`: set the seed for the importance sampling rays production
    - `-md`, `--max-depth`: set max depth of bouncing per ray [default value 3]
    - `-rr`, `--russian-roul`: set the value of depth to start suppressing the ray bouncing probability [default value 3]
