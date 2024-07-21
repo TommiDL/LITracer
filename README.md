@@ -14,7 +14,7 @@ The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programmin
 
 ## Installation
 
-To obtain this code, in order to run or modify the program, download the zip file from the ![latest](https://github.com/TommiDL/LITracer/releases/latest) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
+To obtain this code, in order to run or modify the program, download the zip file from the [latest](https://github.com/TommiDL/LITracer/releases/latest) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
 
 The presence of **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
 
@@ -55,7 +55,7 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
      Here some [examples](#pathtracing-renderer-examples) using pathtracing rendering algorithm.
 
 
-See the ![tutorial](Scene_File_Tutorial.md) to make a scene declaration file or try using the ![example.txt]() file with the command:
+See the [tutorial](Scene_File_Tutorial.md) to make a scene declaration file or try using the [example.txt]() file with the command:
 
 `./gradlew run --args="render example.txt -pfm example  -png examples`
 
