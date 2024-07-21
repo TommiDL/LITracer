@@ -53,6 +53,9 @@ In the scene declaration file is possible to define 4 different families of vari
   - **Sphere**: declaration: `sphere(material, transformation)`
   - **Plane**: declaration: `plane(material, transformation)`
   - **Mesh of triangles**: declaration: `mesh(obj_file, material, transformation)`
+    
+    Check the directory `mesh_obj_files/` to start with some avaiable files.
+
    
   Every objects need a specified transformation, **LITracer** implement six different transformation:
  
