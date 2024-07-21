@@ -58,7 +58,7 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
      Here some [examples](#pathtracing-renderer-examples) using pathtracing rendering algorithm.
 
 
-See the [tutorial](Scene_File_Tutorial.md) to make a scene declaration file or try using the [example.txt](images/example_image_for_github.png) file with the command:
+See the [tutorial](Scene_File_Tutorial.md) to make a scene declaration file or try using the [example.txt](example.txt) file with the command:
 
 `./gradlew run --args="render example.txt -pfm example  -png examples`
 
