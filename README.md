@@ -139,21 +139,20 @@ For further details execute `./gradlew run --args="render"` and get the complete
 
 ## Gallery
 
-### Algorithms examples
+### Rendering algorithms examples
 
 Here a comparison of the same image using the three different algorithms:
 <div align="center">
-  <img src="" width="300"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="" width="300"/>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-   <img src="" width="300"/>
+  <img src=example_images/ludo_samples36_10ray.png width="300"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src=example_images/ludo_flat.png width="300"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src=example_images/ludo_onoff.png width="300"/>
 
 </div>
 
 <p align="center"><em>
- The image on the left  was generated using perspective camera, the image on the right was generated using orthogonal camera
+ From the left to the right: (1) pathtracing algorithm, (2) flat algorithm, (3) onoff algorithm
 </p></em>
 
 
@@ -162,9 +161,9 @@ Here a comparison of the same image using the three different algorithms:
 Here is an example made with 11 spheres showing the behavior of on-off renderer using the two different choices of camera
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/TommiDL/LITracer/pathtracing/example_images/onoff_example_perspective.png" width="300"/>
+  <img src=example_images/onoff_example_perspective.png width="300"/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/TommiDL/LITracer/pathtracing/example_images/onoff_example_orthogonal.png" alt="Orthogonal" width="300"/>
+  <img src=example_images/onoff_example_orthogonal.png alt="Orthogonal" width="300"/>
 </div>
 
 <p align="center"><em>
