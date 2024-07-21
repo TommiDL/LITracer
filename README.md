@@ -1,4 +1,4 @@
-![GitHub release (with filter)](https://img.shields.io/github/v/release/TommiDL/LITracer?include_prereleases&filter=v0.3.0)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/TommiDL/LITracer)
 ![GitHub top language](https://img.shields.io/github/languages/top/TommiDL/LITracer)
 ![GitHub contributors](https://img.shields.io/github/contributors/TommiDL/LITracer)
 ![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/TommiDL/LITracer)
