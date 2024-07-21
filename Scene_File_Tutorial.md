@@ -59,7 +59,7 @@ In the scene declaration file is possible to define 4 different families of vari
    
   Every objects need a specified transformation, **LITracer** implement six different transformation:
  
-  *Notation: a vector is encoded using the formalism [x,y,z]*
+  *Notation: a vector is encoded using the formalism* `[x,y,z]`
    - **Translation**
      - Declaration: `translation(vector)`
      - Example: `translation([1, 0, 0])`

@@ -216,6 +216,7 @@ class Mesh :Shape{
         if(closest!=null)
         {
             res=HitRecord(
+
                 world_point = this.transformation*closest!!.world_point,
                 normal = this.transformation* closest!!.normal,
                 surface_point = closest!!.surface_point,
