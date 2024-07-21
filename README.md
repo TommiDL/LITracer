@@ -40,7 +40,7 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
 ## Render
    Reads a scene declaration from a text file  and create a pfm file and a png image of the scene using different rendering algorithm.
 
-   The user is allowed to choose between perspective or orthognal poin of view.
+   The user is allowed to choose between perspective or orthognal point of view.
 
    The available rendering algorithms are the following:
    - onoff:         the objects of the scene are displayed in white color with a black background.
