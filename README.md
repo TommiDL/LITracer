@@ -139,6 +139,12 @@ For further details execute `./gradlew run --args="render"` and get the complete
 
 ## Gallery
 
+<div align="center">
+<img src="example_images/ludo_samples36_10ray.png", width="300">
+<img src="example_images/gaia_plane.png", width="300">
+<img src="example_images/cornel_10ray_36samples.png", width="300">
+</div>
+
 ### Rendering algorithms examples
 
 Here a comparison of the same image using the three different algorithms:
@@ -231,6 +237,60 @@ Finally some examples generated using a fixed value of `--nray=10` with differen
 
 <p align="center"><em>
 From the left to the right: (1) max depth = 1, (2) max depth = 2, (3) max depth = 3
+</em></p>
+
+### Cornell Box
+Here some examples of a cornell box like image using different values of `--nray` and `--samples-per-pixels`
+
+**5 scattering rays per hit**
+<div align="center">
+<img src="example_images/cornel_5ray_1samples.png", width="300">
+<img src="example_images/cornel_5ray_9samples.png", width="300">
+<img src="example_images/cornel_5ray_16samples.png", width="300">
+</div>
+<p align="center"><em>
+From the left to the right: (1) samples = 1, (2) samples = 9, (3) samples = 16
+</em></p>
+<div align="center">
+<img src="example_images/cornel_5ray_25samples.png", width="300">
+<img src="example_images/cornel_5ray_36samples.png", width="300">
+</div>
+<p align="center"><em>
+From the left to the right: (1) samples = 25, (2) samples = 36
+</em></p>
+
+
+**7 scattering rays per hit**
+<div align="center">
+<img src="example_images/cornel_7ray_4samples.png", width="300">
+<img src="example_images/cornel_7ray_9samples.png", width="300">
+<img src="example_images/cornel_7ray_16samples.png", width="300">
+</div>
+<p align="center"><em>
+From the left to the right: (1) samples = 4, (2) samples = 9, (3) samples = 16
+</em></p>
+
+### Merge Images examples
+
+Here an example of several images generated using different samples-seed values merged using the command image-merge
+
+
+<div align="center">
+<img src="example_images/trial_seed100.png", width="200">
+<img src="example_images/trial_seed15.png", width="200">
+<img src="example_images/trial_seed7.png", width="200">
+<img src="example_images/trial_seed70.png", width="200">
+</div>
+<p align="center"><em>
+several images generated with different random seeds
+</em></p>
+
+<div align="center">
+<img src="example_images/merge.png", width="300">
+</div>
+
+<p align="center"><em>
+Merged image
 </em></p>
 
 
