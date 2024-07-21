@@ -3,6 +3,7 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/TommiDL/LITracer)
 ![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/TommiDL/LITracer)
 
+
 # LITracer
 **LITracer** is a photorealistic images generation software developed using [Ray-Tracing](https://developer.nvidia.com/discover/ray-tracing#:~:text=Ray%20tracing%20is%20a%20rendering,%2C%20shadows%2C%20and%20indirect%20lighting.) technique to simulate the realistic behavior of light reflection. 
 
@@ -15,6 +16,7 @@ The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programmin
 ## Installation
 
 To obtain this code, in order to run or modify the program, download the zip file from the [latest](https://github.com/TommiDL/LITracer/releases/latest) version or clone this repository using the command `git clone https://github.com/TommiDL/LITracer `
+
 
 The presence of **jdk version 21** is requested as a fundamental prerequisite for the correct functioning of the program
 
@@ -41,6 +43,7 @@ Finally run the command `./gradlew test` to check the correct behavior of the co
    Reads a scene declaration from a text file  and create a pfm file and a png image of the scene using different rendering algorithm.
 
    The user is allowed to choose between perspective or orthognal point of view.
+
 
    The available rendering algorithms are the following:
    - onoff:         the objects of the scene are displayed in white color with a black background.
@@ -228,6 +231,7 @@ The following example is generated using orthogonal camera with parameters `--nr
 
 <div align="center">
  <img src="example_images/pt_10nray_ortho.png", width="400">
+
 </div>
 <p align="center"><em>
  Demo image with orthogonal camera (800x500 pixels)
@@ -239,6 +243,7 @@ Finally some examples generated using a fixed value of `--nray=10` with differen
 <img src="example_images/pt_1md.png", width="200">
 <img src="example_images/pt_2md.png", width="200">
 <img src="example_images/pt_3md.png", width="200">
+
 </div>
 
 <p align="center"><em>
@@ -298,6 +303,7 @@ several images generated with different random seeds
 <p align="center"><em>
 Merged image
 </em></p>
+
 
 
 ## History
