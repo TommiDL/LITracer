@@ -12,7 +12,9 @@ LITracer offer three different type of pigment. A pigment describe globally the 
  - **Checkered**: The surface has a periodic repetition of squares with two different colors caractherized by a density set by an integer number
     - Declaration: `checkered(color_1, color_2, repetition)`
     - Example: `checkered(<1,0,0>, <0,1,0>, 4)`
- - **Image**: Copy the spectrum of a PFM file stretched out on the specific surface
+ - **Image**: Copy the spectrum of a PFM file stretched out on the specific surface.
+ 
+   Check the directory `pigment_images/` to start with some avaiable files.
     - Declaration: `image("pfm_file_path")`
     - Example: `image("pigment_images/gaia.pfm")`
 
