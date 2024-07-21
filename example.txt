@@ -1,0 +1,92 @@
+
+# MATERIALS OF THE OBJECTS THAT YOU'LL SET IN THE SCENE
+
+material sky(
+	diffuse(uniform(<0,0,0>)),
+	image("pigment_images/pleiades.pfm")
+)
+
+
+material light(
+	diffuse(uniform(<0,0,0>)),
+	uniform(<1,1,1>)
+)
+
+material mirror(
+	specular(uniform(<1,1,1>)),
+	uniform(<0,0,0>)
+)
+
+
+
+material ground_material(
+    diffuse(uniform(<0,0,0>)),
+checkered(<0.7, 0.3, 1>,
+                      <0.1, 0.2, 0.5>, 4)
+)
+
+
+material blue(
+	diffuse(uniform(<0,0,5>)),
+	uniform(<0,0,0>)
+)
+
+material green(
+	diffuse(uniform(<0,5,0>)),
+	uniform(<0,0,0>)
+)
+
+material red(
+	diffuse(uniform(<5,0,0>)),
+	uniform(<0,0,0>)
+)
+
+material yellow(
+	diffuse(uniform(<5,5,0>)),
+	uniform(<0,0,0>)
+)
+# OBJECTS: HERE YOU CAN DEFINE THE OBJECTS OF THE SCENE: SPHERES, PLANES, AND TRIANGLES MESHES (MORE COMPLEX OBJECTS)
+
+plane(
+    ground_material,
+	translation([0,0,-1])
+)
+
+# A SPHERE SURROUNDING THE OBJECTS
+sphere(
+	sky,
+	translation([0, 0, 1])*scaling([35, 35, 35])
+)
+
+
+sphere(
+	light,
+	translation([0,0, 1.1])*scaling([0.3, 0.3, 0.3])
+)
+
+sphere(
+	red,
+	translation([0,0,-0.2])*scaling([0.3, 0.3, 0.6])
+)
+
+sphere(
+	blue,
+	translation([0,+1.3,-0.6])*scaling([0.3, 0.3, 0.3])
+)
+
+
+sphere(
+	mirror,
+	translation([0,-1.3,-0.6])*scaling([0.3, 0.3, 0.3])
+)
+mesh(
+    "mesh_obj_files/cube.obj",
+     yellow, translation([ -1, 0 , -0.6 ])*rotation_y(30)* scaling([0.1 , 0.1, 0.1])  )
+
+
+
+# HERE YOU CAN DEFINE A CAMERA: YOUR POINT OF VIEW
+camera(perspective , rotation_z(0)*rotation_y(0)*translation([-1,0,0]), 1 ,1 )
+
+
+
