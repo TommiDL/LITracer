@@ -1,5 +1,7 @@
 package org.example
 
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.withSign
 
 /**
@@ -89,6 +91,70 @@ fun interval_intersection(xmin:Float, xmax:Float, ymin:Float, ymax:Float):Boolea
     }
 
     return true
+}
+
+
+
+/**
+ * Check if two intervals intersect.
+ * @xmin = the minimum value of the first interval.
+ * @xmax = the maximum value of the first interval.
+ * @ymin = the minimum value of the second interval.
+ * @ymax = the maximum value of the second interval.
+ * @return True if the intervals intersect, false otherwise.
+ */
+fun interval_intersection(xmin:Float, xmax:Float, ymin:Float, ymax:Float, zmin:Float, zmax:Float):Pair<Float, Float>?
+{
+    val minx:Float=min(xmin, xmax)
+    val miny:Float= min(ymin, ymax)
+    val minz:Float=min(zmin, zmax)
+
+    val maxx:Float= max(xmin, xmax)
+    val maxy:Float=max(ymin, ymax)
+    val maxz:Float=max(zmin, zmax)
+
+    val res:Pair<Float, Float>
+
+    if( interval_intersection(minx, maxx, miny, maxy) and interval_intersection(minx, maxx, minz, maxz) and interval_intersection(miny, maxy, minz, maxz) ) {
+        res= Pair<Float, Float>(max(max(minx, miny),minz), min(min(maxx, maxy), maxz))
+        return res
+    }
+    return null
+
+}
+
+fun interval_intersection_values(xmin:Float, xmax:Float, ymin:Float, ymax:Float):Pair<Float, Float>?
+{
+    val minx:Float
+    val miny:Float
+
+    val maxx:Float
+    val maxy:Float
+
+    if(xmin>xmax) {
+        maxx = xmin
+        minx = xmax
+    } else{
+        maxx=xmax
+        minx=xmin
+    }
+
+    if(ymin>ymax) {
+        maxy = ymin
+        miny = ymax
+    } else{
+        maxy=ymax
+        miny=ymin
+    }
+
+
+
+    if( interval_intersection(minx, maxx, miny, maxy) ) {
+        return Pair<Float, Float>( min(minx, miny), max(maxx, maxy))
+    }
+
+    return null
+
 }
 
 /**
