@@ -10,7 +10,7 @@
 
 This raytracer was developed during Professor [Maurizio Tomasi](https://github.com/ziotom78)'s course [Numerical techniques for the generation of photorealistic images](https://ziotom78.github.io/raytracing_course/)
 
-The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using ![Gradle](https://en.wikipedia.org/wiki/Gradle) software.
+The code is written in [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) language using [Gradle](https://en.wikipedia.org/wiki/Gradle) software.
 
 ## Installation
 
