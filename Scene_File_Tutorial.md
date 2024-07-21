@@ -35,11 +35,58 @@ In the scene declaration file is possible to define 4 different families of vari
    Define a float variable that can be re-used inside the declaration file:
    - Declaration: `float <variable_name>(<variable_value>)`
    - Example: `float x(10.3)`
+     
 - ## Material variables
    Define a material variable that describe the behavior of the object in light's interaction.
 
   A material is defined by two parameters:
-   - Emitted Radiance:
-   - BRDF:  
+   1. **BRDF**: The reflected radiance encoded with a BRDF (and her pigment)
+   2. **Emitted Radiance**: The emission spectrum encoded with a pigment 
+ 
+   - Declaration: `material material_name(brdf, emitted_radiance_pigment)`
+   - Example: `material mirror(specular(uniform(<1,1,1>)), uniform(0,0,1))`
+     
 - ## Geometrical objects:
-  In **LITracer** three different geometrical objects are avaiable 
+  In **LITracer** three different geometrical objects are avaiable
+  - **Sphere**: declaration: `sphere(material, transformation)`
+  - **Plane**: declaration: `plane(material, transformation)`
+  - **Mesh of triangles**: declaration: `mesh(obj_file, material, transformation)`
+   
+  Every objects need a specified transformation, **LITracer** implement six different transformation:
+ 
+  *Notation: a vector is encoded using the formalism [x,y,z]*
+   - **Translation**
+     - Declaration: `translation(vector)`
+     - Example: `translation([1, 0, 0])`
+   - **Scalar transformation**: scales along every specified direction of the selected factor 
+     - Declaration: `scaling(vector)`
+     - Example: `scaling([0.1, 2, 0.1])`
+   - **Rotation along z axis**: angles in 360 degree
+     - Declaration: `rotation_z(angle)`
+     - Example: `rotation_z(180)`
+   - **Rotation along y axis**: angles in 360 degree
+     - Declaration: `rotation_y(angle)`
+     - Example: `rotation_y(180)`
+   - **Rotation along x axis**: angles in 360 degree
+     - Declaration: `rotation_x(angle)`
+     - Example: `rotation_x(180)`
+   - **Identity**
+     - Declaration: `identity`
+     - Example: `identity`
+   
+  Transformation can be concateneted using the "*" symbol:
+ 
+  `translation([1,0,0]) * scaling([0.1,0.1,0.1]) * rotation_z(45)`
+ 
+    
+- ## Camera type
+  **LITracer** support two types of camera:
+  - Perspective: perspective point of view of the observer
+    - Declaration: `camera(perspective, transformation, aspect_ratio, screen_distance)` 
+    - Example: `camera(perspective, translation([-1,0,0]), 1, 1)`
+  - Orthogonal: planimetric point of view
+    - Declaration: `camera(orthogonal, transformation, aspect_ratio)` 
+    - Example: `camera(orthogonal, transformation, aspect_ratio)`
+   
+  If not defined the default value for the camera is `camera(perspective, identity, 1, 1)` 
+
