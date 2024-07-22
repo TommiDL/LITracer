@@ -21,6 +21,7 @@ memorial.png
 animation.sh
 generate-image.sh
 *.py
+generate_galaxies.sh
 
 ### Eclipse ###
 .apt_generated

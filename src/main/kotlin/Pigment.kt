@@ -13,6 +13,12 @@ open class Pigment() {
     open fun get_color(uv: Vec2D): Color {
         return Color()
     }
+
+    open fun are_similar(pigment: Pigment, eps: Float=1e-5f):Boolean
+    {
+        return false
+    }
+
 }
 
 /**
@@ -27,6 +33,12 @@ class UniformPigment( val color :Color): Pigment() {
     override fun get_color(uv: Vec2D): Color {
         return this.color
         }
+
+    override fun are_similar(pigment: Pigment, eps:Float): Boolean {
+        if (pigment !is UniformPigment)
+            return false
+        return pigment.color.is_close(this.color, eps=eps)
+    }
 }
 /**
  * Class CheckeredPigment: Represents a checkered pigment that alternates between two colors depending on the position.
@@ -45,6 +57,12 @@ class CheckeredPigment (val color1 : Color, val color2 : Color, val n_steps: Int
         val u: Int = floor((uv.u * n_steps)).toInt()
         val v: Int = floor((uv.v * n_steps)).toInt()
         return if ((u % 2) == (v % 2))  color1 else color2
+    }
+
+    override fun are_similar(pigment: Pigment, eps: Float): Boolean {
+        if(pigment !is CheckeredPigment)
+            return false
+        return pigment.color1.is_close(this.color1, eps = eps) and pigment.color2.is_close(this.color2, eps=eps) and (pigment.n_steps==this.n_steps)
     }
 
 }
@@ -68,6 +86,32 @@ class ImagePigment(val Image : HdrImage) : Pigment() {
             row = Image.height -1
         }
         return Image.get_pixel(col,row)
+    }
+
+    override fun are_similar(pigment: Pigment, eps: Float): Boolean {
+        if (pigment !is ImagePigment)
+            return false
+        if((pigment.Image.width!=this.Image.width) or (pigment.Image.height!=this.Image.height))
+            return false
+        var res=true
+
+        for (i in 0 until pigment.Image.pixels.size)
+        {
+             res = res and pigment.Image.pixels[i].is_close(this.Image.pixels[i])
+        }
+
+        return res
+    }
+
+    operator fun times(factor:Float):ImagePigment
+    {
+        val new_image:HdrImage=HdrImage(this.Image.width, this.Image.height, this.Image.pixels)
+        new_image.pixels.forEach {
+            it.r*=factor
+            it.g*=factor
+            it.b*=factor
+        }
+        return ImagePigment(new_image)
     }
 
 }

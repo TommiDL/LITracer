@@ -1,0 +1,124 @@
+
+# MATERIALS
+
+material sky(
+	diffuse(uniform(<0,0,0>)),
+	image("pigment_images/pleiades.pfm")
+)
+
+
+material sun(
+	diffuse(uniform(<0,0,0>)),
+	image("pigment_images/sun.pfm")
+)
+
+
+material moon(
+	diffuse(image("pigment_images/moon.pfm")),
+	uniform(<0,0,0>)
+
+)
+
+material earth(
+	diffuse(image("pigment_images/earth.pfm")),
+	uniform(<0,0,0>)
+
+)
+
+material mars(
+	diffuse(image("pigment_images/mars.pfm")),
+	uniform(<0,0,0>)
+
+)
+
+material neptun(
+	diffuse(image("pigment_images/neptun.pfm")),
+	uniform(<0,0,0>)
+
+)
+
+
+material jupiter(
+	diffuse(image("pigment_images/jupiter.pfm")),
+	uniform(<0,0,0>)
+
+)
+
+
+
+
+material light(
+	diffuse(uniform(<0,0,0>)),
+	uniform(<1,1,1>)
+)
+
+material mirror(
+	specular(uniform(<1,1,1>)),
+	uniform(<0,0,0>)
+)
+
+
+
+material ground_material(
+    diffuse(uniform(<0,0,0>)),
+checkered(<0.7, 0.3, 1>,
+                      <0.1, 0.2, 0.5>, 4)
+)
+
+
+material blue(
+	diffuse(uniform(<0,0,5>)),
+	uniform(<0,0,0>)
+)
+
+material dark_ref(
+	diffuse(uniform(<10,10,10>)),
+	uniform(<0,0,0>)
+)
+
+# OBJECTS
+
+plane(
+	dark_ref,
+	translation([0,0,-0.8])
+)
+
+# CUPOLA
+sphere(
+	sky,
+	translation([0, 0, 1])*scaling([35, 35, 35])
+)
+
+
+
+
+camera(perspective , rotation_z(0)*rotation_y(0)*translation([-1,0,0]), 1 ,1 )
+
+sphere(
+	sun,
+	translation([0,0,-0.2])*scaling([0.8, 0.8, 0.8])
+)
+
+sphere(
+	mars,
+	translation([0,1.2,-0.6])*scaling([0.2, 0.2, 0.2])
+)
+
+sphere(
+	earth,
+	translation([0,-1.3,-0.6])*scaling([0.2, 0.2, 0.2])
+)
+
+sphere(
+	jupiter,
+	translation([1,1.3,-0.2])*scaling([0.4, 0.4, 0.4])
+)
+
+sphere(
+	moon,
+	translation([-1,-0.5,-0.7])*scaling([0.1, 0.1, 0.1])
+	
+)
+
+
+

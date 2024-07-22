@@ -28,9 +28,12 @@ class pathtracer(
     override operator fun invoke(ray: Ray):Color
     {
 
+        // show background
         if (ray.depth>this.max_depth) return Color(0f,0f,0f)
 
+
         val hitRecord:HitRecord?=this.world.ray_intersection(ray)
+
 
         if (hitRecord==null)
             return Color(0f,0f,0f)

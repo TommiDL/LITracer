@@ -10,6 +10,8 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import kotlin.math.PI
+import kotlin.math.round
+import kotlin.math.sqrt
 
 
 val WHITE:Color=Color(255f, 255f, 255f)
@@ -24,6 +26,13 @@ val BLACK:Color=Color(0f,0f,0f)
  */
 class Demo : CliktCommand(printHelpOnEmptyArgs = true,help="Create a png demo image and a pfm file")
 {
+
+    val samples:Int by option(
+        "--samples-per-pixel", "-samples",
+        help = "number of ray per pixels to process the color using importance sampling [default 1]\u0085" +
+                "Please use a quadratic power as number, else it will be approximated"
+    ).int().default(1)
+
     val camera_ch:String by option(
         "--camera", "-cam",
         help = "Camera type for the scene rendering: \n" +
@@ -81,7 +90,7 @@ class Demo : CliktCommand(printHelpOnEmptyArgs = true,help="Create a png demo im
     // path tracer parameters
     val n_ray:Int by option(
         "--nray",
-        help = "number of rays for pathtracing algorithm  [default value 10]"
+        help = "number of rays for surface scattering in pathtracing algorithm  [default value 10]"
     ).int().default(10)
     val max_depth:Int by option(
         "--max-depth", "-md" ,
@@ -354,7 +363,11 @@ class Demo : CliktCommand(printHelpOnEmptyArgs = true,help="Create a png demo im
 
 
 
-        tracer.fire_all_ray(){ray: Ray ->  renderer(ray)}
+
+
+        val squares_samples:Int= round(sqrt(samples.toFloat())).toInt()
+
+        tracer.fire_all_ray(pcg = PCG(), samples = (squares_samples*squares_samples), func = {ray: Ray ->  renderer(ray)})
 
 
         try {
