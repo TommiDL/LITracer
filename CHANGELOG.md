@@ -1,5 +1,17 @@
 ## Head
 
+## v1.0.0
+- First public release of the LITracer code.
+    
+    The following functionalities are implemented:
+    
+    -  Render: render an image from a scene defined in a text file
+    -  Demo: create a demo image, useful to gain confidence with the software usage.
+    -  pfm2png: convert a PFM file into a PNG image using the requested conversion parameters
+    -  png2pfm: convert a PNG image into a PFM file usable to define the pigment of objects in scene's declarations
+    -  image-merge: merge multiple images into one
+
+
 ## v0.3.1
 - Fix Issue [#18](https://github.com/TommiDL/LITracer/issues/18) in PR [#19](https://github.com/TommiDL/LITracer/pull/19) 
 
