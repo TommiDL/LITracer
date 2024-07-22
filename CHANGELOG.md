@@ -1,4 +1,9 @@
 ## Head
+
+## v0.3.1
+- Fix Issue [#18](https://github.com/TommiDL/LITracer/issues/18) in PR [#19](https://github.com/TommiDL/LITracer/pull/19) 
+
+
 ## v0.3.0
 -   Third release of the code:
     Now 3 functionalities avaiable:
